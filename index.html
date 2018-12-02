@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=1920, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>LDJ43</title>	
+	<style type="text/css">
+		body, html  {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+	</style>
+<!--
+	<script src="js/lib/easeljs-NEXT.min.js"></script>
+	<script src="js/lib/easeljs-0.4.2.min.js"></script>
+
+-->
+	<script src="js/lib/easeljs-NEXT.min.old.js"></script>
+
+	<script>
+
+		var stage;
+		var bg, logo;		
+		var content
+		var bkgImg, bkgBmp;
+
+		window.addEventListener('resize', resize, false);
+		window.addEventListener("mousemove", function(e) {
+			if (e.screenY > 900) {
+				content.y = 0;
+			}
+			if (e.screenY < 100) {
+				content.y = stage.canvas.height;
+			}
+		});
+
+		function init() {
+
+			stage = new createjs.Stage("demoCanvas");
+			document.getElementById("demoCanvas").addEventListener('click', fullscreen);		
+			createBackground();
+			createLogo();
+			createContent();
+			loadClickImage();
+			
+			createjs.Ticker.addListener(this);
+
+			resize();
+		}
+
+		function fullscreen() {
+			var el = document.documentElement,
+				rfs = el.requestFullscreen
+					|| el.webkitRequestFullScreen
+					|| el.mozRequestFullScreen
+					|| el.msRequestFullscreen;
+
+			rfs.call(el);
+			content.removeChild(clickBmp);
+		}
+		
+		function createBackground() {
+			
+			bg = new createjs.Shape();		
+			stage.addChild(bg);
+
+		}
+
+		function createLogo() {
+			logo = new createjs.Bitmap("assets/obj.png");
+			logo.y = 10;
+			stage.addChild(logo);
+
+		}
+
+		function loadClickImage() {
+			clickImg = new Image();
+			clickImg.src = "assets/click.png";
+			clickImg.onload = function(e){
+				clickBmp = new createjs.Bitmap(clickImg);
+				content.addChild(clickBmp);
+				content.regX = clickBmp.image.width/2
+				content.regY = clickBmp.image.height
+				content.scaleX = content.scaleY = stage.canvas.width/clickBmp.image.width;
+			};
+		}
+		
+		function createContent() {
+			content = new createjs.Container();
+			stage.addChild(content);
+
+			// (You should also use PreloadJS to avoid the onload listener)
+			bkgImg = new Image();
+			bkgImg.src = "assets/bkg.jpg";
+			bkgImg.onload = handleImageLoad;
+			
+
+		}
+		
+		function handleImageLoad() {
+			bkgBmp = new createjs.Bitmap(bkgImg);
+			content.addChild(bkgBmp);
+			content.regX = bkgBmp.image.width/2
+			content.regY = bkgBmp.image.height/2
+			content.scaleX = content.scaleY = stage.canvas.width/bkgBmp.image.width;
+		}
+
+		function tick() {
+			stage.update();
+			console.log()
+		}	
+
+		function resize() {
+			// Resize the canvas element
+		  	stage.canvas.width = window.innerWidth;
+	    	stage.canvas.height = window.innerHeight;	    	
+
+	    	// Logo: top-right position (canvasWidth - image width - 10 px padding)
+	    	logo.x = stage.canvas.width - 120 - 10
+
+	    	// Background: full screen redraw 
+	    	bg.graphics.clear()
+	    	bg.graphics.beginFill("#222").drawRect(0,0,stage.canvas.width,stage.canvas.height);
+	    	
+	        // Content: centered
+	        content.x = stage.canvas.width / 2;
+	        // content.y = stage.canvas.height / 2;
+	        content.y = stage.canvas.height;
+	    }
+
+
+	</script>
+</head>
+<body onLoad="init();">
+	<canvas id="demoCanvas" width="1920" height="1080"></canvas>
+</body>
+</html>
