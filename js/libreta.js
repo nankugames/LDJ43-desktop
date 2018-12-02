@@ -1,6 +1,8 @@
 console.log('loaded libreta.js');
 
 function cargaLibreta(){
- console.log("Funcion de carga FondoLibreta")
+ 
+    console.log("Funcion de carga FondoLibreta")
 
+    stage.removeChild(mensaje3);
 }

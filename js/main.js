@@ -57,6 +57,9 @@ function init() {
 	loadClickImage();
 	
 	//createjs.Ticker.addListener(this); //Al cambiar a createjs1.0 no va
+	createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+    createjs.Ticker.framerate = 30; 
+	createjs.Ticker.addEventListener("tick", stage);
 	createjs.Ticker.addEventListener("tick", handleTick);
 	
 	//CARGA AUDIOS
