@@ -10,9 +10,9 @@ var bkgImg, bkgBmp;
 window.addEventListener('resize', resize, false);
 window.addEventListener("mousemove", function(e) {
 	if (e.screenY > 900) {
-		content.y = -640;
+		content.y = -stage.canvas.height/2;
 	}
-	if (e.screenY < 100) {
+	if (e.screenY < 200) {
 		content.y = h/4;
 	}
 });
@@ -32,7 +32,6 @@ function init() {
 	
 	createjs.Ticker.addListener(this);
 
-	resize();
 }
 
 function fullscreen() {
@@ -53,11 +52,6 @@ function createBackground() {
 
 function createContent() {
 	content = new createjs.Container();
-	content.regX = w/2
-	content.regY = h/2;
-    content.x = 1344/2;
-    content.y = h/4;
-    content.scaleX = content.scaleY = 1344/w;
 	stage.addChild(content);
 }
 
@@ -67,6 +61,7 @@ function loadClickImage() {
 	clickImg.onload = function(e){
 		clickBmp = new createjs.Bitmap(clickImg);
 		content.addChild(clickBmp);
+		resize();
 	};
 }
 
@@ -87,5 +82,12 @@ function tick() {
 function resize() {
   	stage.canvas.width = window.innerWidth;
 	stage.canvas.height = window.innerHeight;
+	content.regX = w/2
+	content.regY = h/2;
+    content.scaleX = stage.canvas.width/w;
+    content.scaleY = stage.canvas.height/h;
+    content.x = stage.canvas.width/2;
+    content.y = stage.canvas.height/2;
+    console.log(stage.canvas.height + "," + h);
 }
 
