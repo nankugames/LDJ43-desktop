@@ -14,28 +14,28 @@ window.addEventListener('resize', resize, false);
 // PARA VERSION DESKTOP
 window.addEventListener("mousemove", function(e) {
 	if (e.screenY > 900) {
-		content.y = -stage.canvas.height/2;
-		this.console.log(stage.canvas.height + "," + h);
+		content.y = -stage.mainCanvas.height/2;
+		this.console.log(stage.mainCanvas.height + "," + h);
 	}
 	if (e.screenY < 200) {
 		content.y = h/4;
-		this.console.log(stage.canvas.height + "," + h);
+		this.console.log(stage.mainCanvas.height + "," + h);
 	}
 });
 
 
 window.addEventListener('click', function(e) {
 	if (e.clientY > screenTop/2+200) {
-		content.y = -stage.canvas.height/2;
+		content.y = -stage.mainCanvas.height/2;
 		if(e.clientX<200){
 			cargaMovil();
 		}
-		else if(e.clientX>stage.canvas.width-200){
-			this.console.log(e.clientX+" de "+stage.canvas.width);
+		else if(e.clientX>stage.mainCanvas.width-200){
+			this.console.log(e.clientX+" de "+stage.mainCanvas.width);
 			cargaLibreta();
 		} 
 	}
-	if (e.clientY < stage.canvas.height/2+stage.canvas.height/4) {
+	if (e.clientY < stage.mainCanvas.height/2+stage.mainCanvas.height/4) {
 		content.y = h/4;
 		if(e.clientX>200&e.clientX<400){
 			cargaMapa();
@@ -45,10 +45,10 @@ window.addEventListener('click', function(e) {
 
 function init() {
 
-	stage = new createjs.Stage("Canvas");
-	canvas = document.getElementById("Canvas");
-	canvas.addEventListener('click', fullscreen);	
-	ctx = canvas.getContext("2d");
+	stage = new createjs.Stage("mainCanvas");
+	mainCanvas = document.getElementById("mainCanvas");
+	mainCanvas.addEventListener('click', fullscreen);	
+	ctx = mainCanvas.getContext("2d");
 	ctx.translate(0.5,0.5);
 	ctx.imageSmoothingEnabled = ctx.webkitImageSmoothingEnabled = ctx.mozImageSmoothingEnabled = false;
 	createBackground();
@@ -83,7 +83,7 @@ function fullscreen() {
 
 	rfs.call(el);
 	content.removeChild(clickBmp);
-	canvas.removeEventListener('click', fullscreen);
+	mainCanvas.removeEventListener('click', fullscreen);
 }
 
 function createBackground() {
@@ -121,15 +121,15 @@ function tick() {
 }	
 
 function resize() {
-  	stage.canvas.width = window.innerWidth;
-	stage.canvas.height = window.innerHeight;
+  	stage.mainCanvas.width = window.innerWidth;
+	stage.mainCanvas.height = window.innerHeight;
 	content.regX = w/2
 	content.regY = h/2;
-    content.scaleX = stage.canvas.width/w;
-    content.scaleY = stage.canvas.height/h;
-    content.x = stage.canvas.width/2;
-    content.y = stage.canvas.height/2;
-    console.log(stage.canvas.height + "," + h);
+    content.scaleX = stage.mainCanvas.width/w;
+    content.scaleY = stage.mainCanvas.height/h;
+    content.x = stage.mainCanvas.width/2;
+    content.y = stage.mainCanvas.height/2;
+    console.log(stage.mainCanvas.height + "," + h);
 }
 //----------------------------------
 //FUNCIONES DE SONIDO
