@@ -101,7 +101,7 @@ function loadMobile(){
     audioButton.scaleX = 0.25;
     audioButton.scaleY=0.25;
     mobile.addChild(audioButton);
-    audioButton.addEventListener("click",function(){playSound("efecto1");message_mobile.text=contacts[iActualContact].infoArray[clamp(++contacts[iActualContact].indexInfo,0,2)];});
+    audioButton.addEventListener("click",saveClue);
 
     audioButton2 = new createjs.Bitmap(loader.getResult('deleteBt'));
     audioButton2.x =  window.innerWidth;//  Ajustado por escala 3 del fondo
@@ -109,7 +109,7 @@ function loadMobile(){
     audioButton2.scaleX = 0.25;
     audioButton2.scaleY=0.25;
     mobile.addChild(audioButton2);
-    audioButton2.addEventListener("click",function(){playSound("efecto2");message_mobile.text=contacts[iActualContact].infoArray[clamp(--contacts[iActualContact].indexInfo,0,2)];});
+    audioButton2.addEventListener("click",discardClue);
   
   // }
   // if(typeof message_mobile!== 'undefined'){ 
@@ -158,8 +158,8 @@ function loadContact(n){
     console.log("Cargando imagen de contacto: "+contacts[n].idImage);
     contactView.x =  window.innerWidth/2;
     contactView.y= window.innerHeight/2;
-    //contactView.scaleX = 3;
-    //contactView.scaleY=3;
+    contactView.scaleX = 3;
+    contactView.scaleY=3;
     mobile.addChild(contactView);
     contactView.addEventListener('click',cambiaFondo)
     message_mobile.text=contacts[n].infoArray[contacts[n].indexInfo];
@@ -190,6 +190,17 @@ function cambiaFondo(){
     mobile.addChild(mobile.bmp);
     mobile.addChild(contactView);
     //prevButton=new createjs.Bitmap(loader.getResult('flechaizq'));
+}
+
+function saveClue(){
+    playSound("efecto1");
+    addClue(contacts[iActualContact].infoArray[contacts[iActualContact].indexInfo],iActualContact);
+    message_mobile.text=contacts[iActualContact].infoArray[clamp(++contacts[iActualContact].indexInfo,0,2)];
+    updateTime(time-5);
+}
+function discardClue(){
+    playSound("efecto2");
+    message_mobile.text=contacts[iActualContact].infoArray[clamp(--contacts[iActualContact].indexInfo,0,2)];
 }
 function clamp(num, min, max) {
     return num <= min ? min : num >= max ? max : num;

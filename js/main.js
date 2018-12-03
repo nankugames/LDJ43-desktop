@@ -270,7 +270,8 @@ function init() {
         e.currentTarget.color = '#FFF';
     });
     dialog.txtOK.addEventListener('click', function(e) {
-        dialog.visible = false;
+		dialog.visible = false;
+		addClue(dialog.txt,iActualContact);
     });
 
     dialog.txtKO = new createjs.Text('');
@@ -384,14 +385,23 @@ function loadImages() {
 		{src: 'movil_investigar.png', id: 'mobileDecide'},
 		{src: 'bgNotebook.jpg', id: 'bgNotebook'},
 
-		{src: 'contacto1.png', id: 'contact1'},
-		{src: 'contacto2.png', id: 'contact2'},
-		{src: 'contacto3.png', id: 'contact3'},
-		{src: 'contacto4.png', id: 'contact4'},
-		{src: 'contacto5.png', id: 'contact5'},
-		{src: 'contacto6.png', id: 'contact6'},
-		{src: 'contacto7.png', id: 'contact7'},
-		{src: 'contacto8.png', id: 'contact8'},
+		{src: 'foto_contactos/agente_trafico.png', id: 'contact1'},
+		{src: 'foto_contactos/anciano.png', id: 'contact2'},
+		{src: 'foto_contactos/camarera.png', id: 'contact3'},
+		{src: 'foto_contactos/chica_joven.png', id: 'contact4'},
+		{src: 'foto_contactos/companero_de_clase.png', id: 'contact5'},
+		{src: 'foto_contactos/fontanero.png', id: 'contact6'},
+		{src: 'foto_contactos/gorrilla.png', id: 'contact7'},
+		{src: 'foto_contactos/guardia_parking.png', id: 'contact8'},
+		{src: 'foto_contactos/ingenier.png', id: 'contact9'},
+		{src: 'foto_contactos/mendigo.png', id: 'contact10'},
+		{src: 'foto_contactos/nino_inquieto.png', id: 'contact11'},
+		{src: 'foto_contactos/padre_de_nino.png', id: 'contact12'},
+		{src: 'foto_contactos/piraguista.png', id: 'contact13'},
+		{src: 'foto_contactos/profesora.png', id: 'contact14'},
+		{src: 'foto_contactos/senor_mediana_edad.png', id: 'contact15'},
+		{src: 'foto_contactos/senora_mayor.png', id: 'contact16'},
+		{src: 'foto_contactos/servicio_tecnico.png', id: 'contact17'},
 		{src:'green-up-arrow.png',id:'prev'},
 		{src: 'llamada.jpg', id: 'callBt'},
 		{src:'borraContact.jpg',id:'deleteBt'}
@@ -485,7 +495,7 @@ function moveCar(timeLeft) {
         clearInterval(moveCarReset);
 
         dialog.txt.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        dialog.txtOK.text = "Ok. Allé voy";
+        dialog.txtOK.text = "Ok. Alla voy";
         dialog.txtKO.text = "What????";
         dialog.visible = true;
     }

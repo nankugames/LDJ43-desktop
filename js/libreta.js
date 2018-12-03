@@ -3,7 +3,8 @@ var notebook;
 var message_notebook;
 var closeButton2;
 var notebookActive=false;
-
+var iClue=0;
+var clues=[];
 function loadNotebook(){
  console.log("Opening notebook..."); 
  if(stage){
@@ -29,7 +30,9 @@ function loadNotebook(){
     message_notebook.y = window.innerHeight/8;//200
     message_notebook.maxWidth=window.innerWidth;
     notebook.addChild(message_notebook);
-
+    for(var q in clues){
+        notebook.addChild(clues[q]);
+    }
     notebookActive=true;
   
  }
@@ -43,8 +46,15 @@ function closeNotebook(){
     notebookActive=false;
 }
 
-function addClue(n){
+function addClue(textClue,idWitness){
 //n será el indice que guarda el numero de pistas ya apuntadas
 //Se usa para posicionar calculando .y=n*40; por tamaño 36px
-
+    clues[iClue] = new createjs.Text(textClue);
+    clues[iClue].font ="36px BrotherDeluxe";
+    if(idWitness==0)clues[iClue].color = "#99402D";
+    else clues[iClue].color="black";
+    clues[iClue].x = window.innerWidth/2; 
+    clues[iClue].y = 2*window.innerHeight/8+iClue*window.innerHeight/8;
+    clues[iClue].maxWidth=window.innerWidth;
+    iClue++;
 }
