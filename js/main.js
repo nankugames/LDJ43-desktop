@@ -91,18 +91,16 @@ window.addEventListener('click', function(e) {
 	if ((e.clientY > stage.canvas.height-100) &PlayerAtScreenView=="Top") {
 		content.y = -stage.canvas.height/2;
 		PlayerAtScreenView="Bottom";
-		this.console.log(stage.canvas.height + "," + h+ ". Por click en "+e.clientY+"px estoy en"+PlayerAtScreenView);
 	}
 	if (e.clientY < 100&PlayerAtScreenView=="Bottom") {
 		content.y = h/4;
 		PlayerAtScreenView="Top";
-		this.console.log(stage.canvas.height + "," + h+ ". Por click en "+e.clientY+"px estoy en"+PlayerAtScreenView);
 	}
 	if(PlayerAtScreenView=="Bottom"){
-		if(e.clientX<200&!mobileActive){
+		if(e.clientX<200&!mobileActive&!notebookActive){
 		loadMobile();
 		}
-		else if(e.clientX>stage.canvas.width-200&!notebookActive){
+		else if(e.clientX>stage.canvas.width-200&!notebookActive&!mobileActive){
 		loadNotebook();
 		} 
 	}
@@ -197,7 +195,14 @@ function loadImages() {
 		{src: 'cerrar.jpg', id: 'closeBt'},
 		{src: 'movil_investigar.png', id: 'mobileDecide'},
 		{src: 'bgNotebook.jpg', id: 'bgNotebook'},
-		{src: 'icon_contact.png', id: 'contact1'},
+		{src: 'contacto1.png', id: 'contact1'},
+		{src: 'contacto2.png', id: 'contact2'},
+		{src: 'contacto3.png', id: 'contact3'},
+		{src: 'contacto4.png', id: 'contact4'},
+		{src: 'contacto5.png', id: 'contact5'},
+		{src: 'contacto6.png', id: 'contact6'},
+		{src: 'contacto7.png', id: 'contact7'},
+		{src: 'contacto8.png', id: 'contact8'},
 		{src:'green-up-arrow.png',id:'prev'},
 		{src: 'llamada.jpg', id: 'callBt'},
 		{src:'borraContact.jpg',id:'deleteBt'}

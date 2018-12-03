@@ -42,3 +42,9 @@ function closeNotebook(){
     content.removeChild(notebook);
     notebookActive=false;
 }
+
+function addClue(n){
+//n será el indice que guarda el numero de pistas ya apuntadas
+//Se usa para posicionar calculando .y=n*40; por tamaño 36px
+
+}
