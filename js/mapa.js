@@ -1,6 +1,6 @@
-console.log('loaded mapa.js');
+console.log('loaded Map(mapa.js)');
 
-function cargaMapa(){
- console.log("Funcion de carga Mapa")
+function loadMap(){
+ console.log("Opening map...")
 
 }

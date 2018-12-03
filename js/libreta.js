@@ -1,8 +1,8 @@
-console.log('loaded libreta.js');
+console.log('loaded Notebook(libreta.js)');
 
-function cargaLibreta(){
+function loadNotebook(){
  
-    console.log("Funcion de carga FondoLibreta")
+    console.log("Opening notebook...")
 
-    stage.removeChild(mensaje3);
+    stage.removeChild(message_mobile);
 }

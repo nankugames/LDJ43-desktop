@@ -1,6 +1,6 @@
-console.log('loaded movil.js');
+console.log('loaded Mobile(movil.js)');
 
-var botones=[
+var buttons=[
     {
      data:{
         framerate: 30,
@@ -12,7 +12,7 @@ var botones=[
     yoffset: 0,
     }
 ];
-var fondos=[
+var backgrounds=[
     {
         data:{
             framerate: 30,
@@ -25,52 +25,50 @@ var fondos=[
     }
 ];
 
-var mensaje3;
+var message_mobile;
 
-function cargaMovil(){
+function loadMobile(){
  
     
  if(stage){
-    console.log("Funcion de carga de Gestion de movil");
-   // if(typeof mensaje3!== 'undefined'){ 
-    mensaje3 = new createjs.Text("Agent 2: Info");
-    mensaje3.font ="24px BrotherDeluxe";
-    mensaje3.color = "#99402D";
-	mensaje3.x = stage.canvas.width/6; 
-    mensaje3.y = 200; 
-    mensaje3.maxWidth=stage.canvas.width;
-    stage.addChild(mensaje3);
+    console.log("Opening Mobile");
+   // if(typeof message_mobile!== 'undefined'){ 
+    message_mobile = new createjs.Text("Agent 2: Info");
+    message_mobile.font ="24px BrotherDeluxe";
+    message_mobile.color = "#99402D";
+	message_mobile.x = stage.canvas.width/6; 
+    message_mobile.y = 200; 
+    message_mobile.maxWidth=stage.canvas.width;
+    stage.addChild(message_mobile);
   //  }
-    //cargar 2 botones audio y textos en html meterlos en canvas.
-  //  if(typeof img!== 'undefined'){ 
-    var img=botones[0];
-    img.spriteSheet= new createjs.SpriteSheet(botones[0].data);
-    img.sprite=new createjs.Sprite(botones[0].spriteSheet);
-    img.movingTime = 0;
-    img.spriteSheet.on("complete", onLoadComplete);
-    img.spriteSheet.on("error", onLoadError);
-    var xinit = stage.canvas.width/100;
-    img.sprite.x =  xinit ;
-    var yinit=stage.canvas.height/100;
-    img.sprite.y = yinit;
-    stage.addChild(img.sprite);
-    img.sprite.addEventListener("click",function(){playSound("1");});
-   // }
-  //  if(typeof fondo!== 'undefined'){ 
-    var fondo=fondos[0];
-    fondo.spriteSheet= new createjs.SpriteSheet(fondos[0].data);
-    fondo.sprite=new createjs.Sprite(fondos[0].spriteSheet);
-    fondo.movingTime = 0;
-    fondo.spriteSheet.on("complete", onLoadComplete);
-    fondo.spriteSheet.on("error", onLoadError);
-    var xinit = 0;//stage.canvas.width/2;
-    fondo.sprite.x =  xinit ;
-    var yinit=200//stage.canvas.height/2;
-    fondo.sprite.y = yinit;
-    stage.addChild(fondo.sprite);
-   // }
 
-    stage.update();
-    stage.updateContext(ctx);
+  //  if(typeof audioButton!== 'undefined'){ 
+    var audioButton=buttons[0];
+    audioButton.spriteSheet= new createjs.SpriteSheet(buttons[0].data);
+    audioButton.sprite=new createjs.Sprite(buttons[0].spriteSheet);
+    audioButton.movingTime = 0;
+    audioButton.spriteSheet.on("complete", onLoadComplete);
+    audioButton.spriteSheet.on("error", onLoadError);
+    var xinit = stage.canvas.width/100;
+    audioButton.sprite.x =  xinit ;
+    var yinit=stage.canvas.height/100;
+    audioButton.sprite.y = yinit;
+    stage.addChild(audioButton.sprite);
+    audioButton.sprite.addEventListener("click",function(){playSound("1");});
+   // }
+  //  if(typeof bgMobile!== 'undefined'){ 
+    var bgMobile=backgrounds[0];
+    bgMobile.spriteSheet= new createjs.SpriteSheet(backgrounds[0].data);
+    bgMobile.sprite=new createjs.Sprite(backgrounds[0].spriteSheet);
+    bgMobile.movingTime = 0;
+    bgMobile.spriteSheet.on("complete", onLoadComplete);
+    bgMobile.spriteSheet.on("error", onLoadError);
+    var xinit = 0;//content.width/2;
+    bgMobile.sprite.x =  xinit ;
+    var yinit=200//content.height/2;
+    bgMobile.sprite.y = yinit;
+    stage.addChild(bgMobile.sprite);
+   // }
+   // stage.update();
  }
 }
