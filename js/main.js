@@ -9,58 +9,58 @@ var lastPin = {};
 
 var hotspotPaths = {
     20: {
-        1: { x:520, y:644 }, 
-        2: { x:530, y:680 }, 
-        3: { x:525, y:665 }, 
-        7: { x:530, y:765 }, 
-        9: { x:526, y:914 }, 
-        10: { x:528, y:870 }, 
-        11: { x:530, y:765 }, 
-        12: { x:525, y:765 }, 
-        16: { x:560, y:1050 }, 
-        17: { x:556, y:1052 }, 
-        21: { x:550, y:1055 }, 
-        22: { x:560, y:1050 }, 
-        23: { x:565, y:1055 }
+        1: { x:520, y:644, distance: 6 }, 
+        2: { x:530, y:680, distance: 6 }, 
+        3: { x:525, y:665, distance: 8 }, 
+        7: { x:530, y:765, distance: 5 }, 
+        9: { x:526, y:914, distance: 2 }, 
+        10: { x:528, y:870, distance: 3 }, 
+        11: { x:530, y:765, distance: 7 }, 
+        12: { x:525, y:765, distance: 8 }, 
+        16: { x:560, y:1050, distance: 2 }, 
+        17: { x:556, y:1052, distance: 7 }, 
+        21: { x:550, y:1055, distance: 4 }, 
+        22: { x:560, y:1050, distance: 5 }, 
+        23: { x:565, y:1055, distance: 6 }
     }
 }
 
 var hotspots = [
 
-    { x: 560, y:580, title: '#1\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 810, y:600, title: '#2\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 993, y:660, title: '#3\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1130, y:687, title: '#4\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1268, y:651, title: '#5\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1450, y:660, title: '#6\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
+    { x: 560, y:580 },
+    { x: 810, y:600 },
+    { x: 993, y:660 },
+    { x: 1130, y:687 },
+    { x: 1268, y:651 },
+    { x: 1450, y:660 },
 
-    { x: 762, y:710, title: '#7\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1130, y:780, title: '#8\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 580, y:850, title: '#9\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 642, y:815, title: '#10\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
+    { x: 762, y:710 },
+    { x: 1130, y:780 },
+    { x: 580, y:850 },
+    { x: 642, y:815 },
 
-    { x: 810, y:885, title: '#11\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 901, y:843, title: '#12\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1104, y:925, title: '#13\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1269, y:829, title: '#14\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
+    { x: 810, y:885 },
+    { x: 901, y:843 },
+    { x: 1104, y:925 },
+    { x: 1269, y:829 },
 
-    { x: 1456, y:805, title: '#15\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 695, y:1045, title: '#16\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
+    { x: 1456, y:805 },
+    { x: 695, y:1045 },
 
-    { x: 940, y:1015, title: '#17\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1104, y:1038, title: '#18\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1280, y:965, title: '#19\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 530, y:1016, title: '#20\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
+    { x: 940, y:1015 },
+    { x: 1104, y:1038 },
+    { x: 1280, y:965 },
+    { x: 530, y:1016 },
 
-    { x: 784, y:1115, title: '#21\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
+    { x: 784, y:1115 },
 
-    { x: 900, y:1160, title: '#22\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 924, y:1082, title: '#23\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1121, y:1168, title: '#24\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1130, y:1085, title: '#25\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1286, y:1215, title: '#26\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1346, y:1000, title: '#27\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
-    { x: 1406, y:1149, title: '#28\n\nMadison 5 Square Garden\n\n\nDistance: 4 minutes'},
+    { x: 900, y:1160 },
+    { x: 924, y:1082 },
+    { x: 1121, y:1168 },
+    { x: 1130, y:1085 },
+    { x: 1286, y:1215 },
+    { x: 1346, y:1000 },
+    { x: 1406, y:1149 },
 
 ]
 
@@ -140,27 +140,32 @@ function init() {
     bkg = new createjs.Bitmap(loader.getResult('bkg'));
     click = new createjs.Bitmap(loader.getResult('click'));
 
-    cajaTop = new createjs.Container();
-    cajaTop.mouseEnabled = false;
-    cajaTop.bmp = new createjs.Bitmap(loader.getResult('cajaTop'));
-    cajaTop.x = 340;
-    cajaTop.y = 540;
-    cajaTop.visible = false;
-    cajaTop.titleTxt = new createjs.Text('It\'s my title');
-    cajaTop.titleTxt.font = '32px Commodore';
-    cajaTop.titleTxt.color = '#FFF';
-    cajaTop.titleTxt.x = 35;
-    cajaTop.titleTxt.y = 15;
-    cajaTop.titleTxt.maxWidth = stage.canvas.width;
+    textBox = new createjs.Container();
+    textBox.mouseEnabled = false;
+    textBox.bkg = new createjs.Bitmap(loader.getResult('textBox'));
+    textBox.picture = new createjs.Bitmap(loader.getResult('sketch24'));
+    textBox.picture.x = 60;
+    textBox.picture.y = 430;
+    textBox.bkg.alpha = 0.6;
+    textBox.x = 316;
+    textBox.y = 523;
+    textBox.visible = false;
+    textBox.titleTxt = new createjs.Text('It\'s my title');
+    textBox.titleTxt.font = '24px Minecraftia-Regular';
+    textBox.titleTxt.color = '#FFF';
+    textBox.titleTxt.x = 35;
+    textBox.titleTxt.y = 25;
+    textBox.titleTxt.maxWidth = stage.canvas.width;
 
     content.addChild(bkg);
 
     loadHotspots();
     loadHotspotPaths();
 
-    content.addChild(cajaTop);
-    cajaTop.addChild(cajaTop.bmp);
-    cajaTop.addChild(cajaTop.titleTxt);
+    content.addChild(textBox);
+    textBox.addChild(textBox.bkg);
+    textBox.addChild(textBox.picture);
+    textBox.addChild(textBox.titleTxt);
 
     //content.addChild(click);
     resize();
@@ -174,13 +179,15 @@ function loadImages() {
     manifest = [
         {src: 'bkg4x.jpg', id: 'bkg'},
         {src: 'click4x.png', id: 'click'},
-        {src: 'caja-top.png', id: 'cajaTop'},
+        {src: 'text-box.png', id: 'textBox'},
         {src: 'red-pin.png', id: 'redPin'},
         {src: 'gold-pin.png', id: 'goldPin'},
         {src: 'blue-pin.png', id: 'bluePin'},
         {src: 'gray-ball.png', id: 'greyBall'},
         {src: 'black-ball.png', id: 'blackBall'},
         {src: 'green-ball.png', id: 'greenBall'},
+        {src: 'sketch-24.png', id: 'sketch24'},
+        {src: 'sketch-16.png', id: 'sketch16'},
     ];
 
     for (i=20;i<=20;i++) {
@@ -229,18 +236,31 @@ function loadHotspots() {
         hp.bmp.cursor = 'pointer';
         hp.bmp.x = hp.x;
         hp.bmp.y = hp.y;
-        hp.bmp.title = hp.title;
+        hp.bmp.title = '#'+ hp.bmp.id + ' - ' + _t.hotspots[hp.bmp.id].title;
 
         hp.bmp.addEventListener('mouseover', function(e) {
-            console.log('title: '+e.currentTarget.title + ' ' + lastPin.id + '-' + e.currentTarget.id);
-            cajaTop.titleTxt.text = e.currentTarget.title;
-            cajaTop.visible = true;
+            var hpTarget = hotspotPaths[lastPin.id][e.currentTarget.id];
+
+            if (hpTarget && hpTarget.distance) {
+                textBox.titleTxt.text = e.currentTarget.title + 
+                    '\n\n\n' + _t.distance +': ' + 
+                    hpTarget.distance +
+                    ' ' + _t.minutes;
+            } else {
+                 textBox.titleTxt.text = e.currentTarget.title + 
+                    '\n\n\n' + _t.distance +':  ' + _t.toofar;               
+            }
+
+            var image = loader.getResult('sketch'+e.currentTarget.id);
+            if(image) textBox.picture.image = image;
+
+            textBox.visible = true;
             e.currentTarget.image = loader.getResult('bluePin');
             stage.cursor = 'pointer';
-            hotspotPaths[lastPin.id][e.currentTarget.id].img.visible = true;
+            hpTarget.img.visible = true;
         });
         hp.bmp.addEventListener('mouseout', function(e) {
-            cajaTop.visible = false;
+            textBox.visible = false;
             stage.cursor = 'default';
             if (!e.currentTarget.pulsado) e.currentTarget.image = loader.getResult('redPin');
             hotspotPaths[lastPin.id][e.currentTarget.id].img.visible = false;
