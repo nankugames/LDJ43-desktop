@@ -130,11 +130,11 @@ window.addEventListener('resize', resize, false);
 
 window.addEventListener('mousemove', function(e) {
 	if (e.screenY > 980) {
-		content.y = -stage.canvas.height/2;
+        content.y = -stage.canvas.height;
 		this.console.log(stage.canvas.height + ',' + h);
 	}
 	if (e.screenY < 200) {
-		content.y = h/4;
+        content.y = 0;
 		this.console.log(stage.canvas.height + ',' + h);
 	}
 });
@@ -158,7 +158,7 @@ function init() {
     stage.enableMouseOver(60);
 
     canvas = document.getElementById('mainCanvas');
-    //canvas.addEventListener('click', fullscreen);
+    canvas.addEventListener('click', fullscreen);
     ctx = canvas.getContext('2d');
     ctx.translate(0.5, 0.5);
     ctx.imageSmoothingEnabled = ctx.webkitImageSmoothingEnabled = ctx.mozImageSmoothingEnabled = false;
@@ -167,6 +167,12 @@ function init() {
     stage.addChild(content);
     
     bkg = new createjs.Bitmap(loader.getResult('bkg'));
+    bkgMobile = new createjs.Bitmap(loader.getResult('bkgMobile'));
+    bkgNotebook = new createjs.Bitmap(loader.getResult('bkgNotebook'));
+
+    mobile = new createjs.Bitmap(loader.getResult('mobile'));
+    notebook = new createjs.Bitmap(loader.getResult('notebook'));
+
     click = new createjs.Bitmap(loader.getResult('click'));
 
     miniCar = new createjs.Bitmap(loader.getResult('car'));
@@ -176,10 +182,10 @@ function init() {
     timeBox = new createjs.Container();
     timeBox.txt = new createjs.Text(time + ' ' + _t.minutes);
     timeBox.txt.font = '48px Commodore64P';
-    timeBox.txt.color = '#FFF';
+    timeBox.txt.color = '#000';
     timeBox.txt.textAlign = 'right';
-    timeBox.x = stage.canvas.width - 40;
-    timeBox.y = 40;
+    timeBox.x = stage.canvas.width - 380;
+    timeBox.y = 530;
 
     textBox = new createjs.Container();
     textBox.mouseEnabled = false;
@@ -187,8 +193,9 @@ function init() {
     textBox.bkg = new createjs.Bitmap(loader.getResult('textBox'));
 
     textBox.picture = new createjs.Bitmap(loader.getResult('sketch24'));
+    textBox.picture.alpha = 0.5;
     textBox.picture.x = 60;
-    textBox.picture.y = 430;
+    textBox.picture.y = 390;
     textBox.bkg.alpha = 0.6;
     textBox.x = 316;
     textBox.y = 523;
@@ -306,7 +313,54 @@ function init() {
     dialog.cursor = 'pointer';
     dialog.visible = false;
 
+    mobile.y = 1900;
+    mobile.x = 400;
+    mobile.visible = false;
+    mobile.addEventListener('click', function(e) {
+        e.currentTarget.visible = false;
+        bkgMobile.visible = true;
+    });
+
+    notebook.y = 1900;
+    notebook.x = 80;
+    notebook.visible = false;
+    notebook.addEventListener('click', function(e) {
+        e.currentTarget.visible = false;
+        bkgNotebook.visible = true;
+    });
+
+    bkgMobile.y = 2161;
+    bkgMobile.cursor = 'pointer';
+    bkgMobile.addEventListener('mouseover', function(e) {
+        e.currentTarget.image = loader.getResult('bkgMobileOn');
+
+    });
+    bkgMobile.addEventListener('mouseout', function(e) {
+        e.currentTarget.image = loader.getResult('bkgMobile');
+    });
+    bkgMobile.addEventListener('click', function(e) {
+        e.currentTarget.visible = false;
+        mobile.visible = true;
+    });
+
+    bkgNotebook.x = 1080;
+    bkgNotebook.y = 2036;
+    bkgNotebook.cursor = 'pointer';
+    bkgNotebook.addEventListener('mouseover', function(e) {
+        e.currentTarget.image = loader.getResult('bkgNotebookOn');
+
+    });
+    bkgNotebook.addEventListener('mouseout', function(e) {
+        e.currentTarget.image = loader.getResult('bkgNotebook');
+    });
+    bkgNotebook.addEventListener('click', function(e) {
+        e.currentTarget.visible = false;
+        notebook.visible = true;
+    });
+
     content.addChild(bkg);
+    content.addChild(bkgMobile);
+    content.addChild(bkgNotebook);
     content.addChild(miniCar);
 
     loadHotspots();
@@ -337,7 +391,10 @@ function init() {
     dialog.addChild(dialog.txtOK);
     dialog.addChild(dialog.txtKO);
 
-    //content.addChild(click);
+    content.addChild(notebook);
+    content.addChild(mobile);
+
+    content.addChild(click);
     resize();
 
     //loadAudio();
@@ -352,7 +409,14 @@ function loadImages() {
         {src: 'white-btn.png', id: 'alertBtn'},
         {src: 'car.png', id: 'car'},
 
-        {src: 'bkg4x.jpg', id: 'bkg'},
+        {src: 'bkg.png', id: 'bkg'},
+        {src: 'bkg-mobile.png', id: 'bkgMobile'},
+        {src: 'bkg-mobile-on.png', id: 'bkgMobileOn'},
+        {src: 'bkg-notebook.png', id: 'bkgNotebook'},
+        {src: 'bkg-notebook-on.png', id: 'bkgNotebookOn'},
+        {src: 'mobile3x.png', id: 'mobile'},
+        {src: 'notebook4x.png', id: 'notebook'},
+
         {src: 'click4x.png', id: 'click'},
         {src: 'dialog.png', id: 'dialog'},
 
@@ -367,6 +431,7 @@ function loadImages() {
 
         {src: 'sketch-24.png', id: 'sketch24'},
         {src: 'sketch-16.png', id: 'sketch16'},
+        {src: 'sketch-semaforo.png', id: 'sketch12'},
     ];
 
     for (i in hotspotPaths) {
@@ -562,6 +627,9 @@ function fullscreen() {
     rfs.call(el);
     content.removeChild(click);
     canvas.removeEventListener('click', fullscreen);
+    stage.canvas.width = window.innerWidth;
+    stage.canvas.height = window.innerHeight;
+    fullscreenActivated = true;
 }
 
 function loadAudio() {
@@ -589,12 +657,12 @@ function resize() {
     stage.canvas.width = window.innerWidth;
     stage.canvas.height = window.innerHeight;
     content.regX = w / 2
-    content.regY = h / 2;
-    content.scaleX = stage.canvas.width / w;
-    content.scaleY = stage.canvas.height / h;
+    //content.regY = h / 2;
+    content.scaleX = content.scaleY = stage.canvas.height / h;
+    //content.scaleY = stage.canvas.height / h;
     content.x = stage.canvas.width / 2;
-    content.y = stage.canvas.height / 2;
-    console.log(stage.canvas.height + ',' + h);
+    content.y = 0;
+    //content.y = 740 / 2 - 100;
 }
 
 //FUNCIONES DE SONIDO
