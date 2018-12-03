@@ -7,7 +7,7 @@ var loader;
 var stage;
 var bg;
 var content, hotspotsMC;
-var bkgImg, bkgBmp;
+var bkg;
 var lastPin = {};
 
 var hotspotPaths = {
@@ -181,7 +181,9 @@ function loadImages() {
         {src: 'blue-pin.png', id: 'bluePin'},
         {src: 'gray-ball.png', id: 'greyBall'},
         {src: 'black-ball.png', id: 'blackBall'},
-        {src: 'green-ball.png', id: 'greenBall'},
+		{src: 'green-ball.png', id: 'greenBall'},
+		{src: 'audioButton.png', id: 'audioBt'},
+		{src: 'movil.png', id: 'bgMobile'}
     ];
 
     for (i=20;i<=20;i++) {
@@ -341,7 +343,7 @@ function onLoadComplete(event) {
 //----------------------------------
 // FUNCTIONS UNUSED
 //----------------------------------
-function createBackground() {
+/*function createBackground() {
 	bg = new createjs.Shape();		
 	stage.addChild(bg);
 }
@@ -368,4 +370,4 @@ function loadBkgImage() {
 		bkgBmp = new createjs.Bitmap(bkgImg);
 		content.addChild(bkgBmp);
 	}
-}
+}*/

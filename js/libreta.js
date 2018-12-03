@@ -5,4 +5,6 @@ function loadNotebook(){
     console.log("Opening notebook...")
 
     stage.removeChild(message_mobile);
+    stage.removeChild(bgMobile);
+
 }
