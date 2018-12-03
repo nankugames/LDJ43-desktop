@@ -82,7 +82,7 @@ function loadMobile(){
     mobile=new createjs.Container();
     mobile.bmp=new createjs.Bitmap(loader.getResult('bgMobile'));
     mobile.x = stage.canvas.width/4;
-    mobile.y=window.innerHeight*2+window.innerHeight;
+    mobile.y=window.innerHeight*2+window.innerHeight-50;
     mobile.bmp.scaleX=3;
     mobile.bmp.scaleY=3;
     content.addChild(mobile);

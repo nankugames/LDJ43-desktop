@@ -17,7 +17,7 @@ function loadNotebook(){
     content.addChild(notebook);
     notebook.addChild(notebook.bmp);
     closeButton2=new createjs.Bitmap(loader.getResult('closeBt'));
-    closeButton2.x=0;//window.innerWidth;
+    closeButton2.x=0;
     closeButton2.y=0;
     notebook.addChild(closeButton2);
     closeButton2.addEventListener("click",closeNotebook);
@@ -27,7 +27,7 @@ function loadNotebook(){
     message_notebook.font ="36px BrotherDeluxe";
     message_notebook.color = "#99402D";
 	message_notebook.x = window.innerWidth/100; 
-    message_notebook.y = window.innerHeight/8;//200
+    message_notebook.y = window.innerHeight/8;
     message_notebook.maxWidth=window.innerWidth;
     notebook.addChild(message_notebook);
     for(var q in clues){
@@ -51,9 +51,10 @@ function addClue(textClue,idWitness){
 //Se usa para posicionar calculando .y=n*40; por tamaño 36px
     clues[iClue] = new createjs.Text(textClue);
     clues[iClue].font ="36px BrotherDeluxe";
+    clues[iClue].textAlign="left";
     if(idWitness==0)clues[iClue].color = "#99402D";
     else clues[iClue].color="black";
-    clues[iClue].x = window.innerWidth/2; 
+    clues[iClue].x = window.innerWidth/4; 
     clues[iClue].y = 2*window.innerHeight/8+iClue*window.innerHeight/8;
     clues[iClue].maxWidth=window.innerWidth;
     iClue++;

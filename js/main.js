@@ -271,7 +271,7 @@ function init() {
     });
     dialog.txtOK.addEventListener('click', function(e) {
 		dialog.visible = false;
-		addClue(dialog.txt,iActualContact);
+		addClue(dialog.txt.text,iActualContact);
     });
 
     dialog.txtKO = new createjs.Text('');
@@ -383,7 +383,7 @@ function loadImages() {
 		{src: 'Movil_contactos.png', id: 'bgMobile'},
 		{src: 'cerrar.jpg', id: 'closeBt'},
 		{src: 'movil_investigar.png', id: 'mobileDecide'},
-		{src: 'bgNotebook.jpg', id: 'bgNotebook'},
+		{src: 'libreta-mockup.jpg', id: 'bgNotebook'},
 
 		{src: 'foto_contactos/agente_trafico.png', id: 'contact1'},
 		{src: 'foto_contactos/anciano.png', id: 'contact2'},
