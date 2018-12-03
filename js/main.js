@@ -88,12 +88,12 @@ window.addEventListener("mousemove", function(e) {
 
 
 window.addEventListener('click', function(e) {
-	if (e.clientY > 800 &PlayerAtScreenView=="Top") {
+	if ((e.clientY > stage.canvas.height-100) &PlayerAtScreenView=="Top") {
 		content.y = -stage.canvas.height/2;
 		PlayerAtScreenView="Bottom";
 		this.console.log(stage.canvas.height + "," + h+ ". Por click en "+e.clientY+"px estoy en"+PlayerAtScreenView);
 	}
-	if (e.clientY < 300&PlayerAtScreenView=="Bottom") {
+	if (e.clientY < 100&PlayerAtScreenView=="Bottom") {
 		content.y = h/4;
 		PlayerAtScreenView="Top";
 		this.console.log(stage.canvas.height + "," + h+ ". Por click en "+e.clientY+"px estoy en"+PlayerAtScreenView);
@@ -196,7 +196,11 @@ function loadImages() {
 		{src: 'Movil_contactos.png', id: 'bgMobile'},
 		{src: 'cerrar.jpg', id: 'closeBt'},
 		{src: 'movil_investigar.png', id: 'mobileDecide'},
-		{src: 'bgNotebook.jpg', id: 'bgNotebook'}
+		{src: 'bgNotebook.jpg', id: 'bgNotebook'},
+		{src: 'icon_contact.png', id: 'contact1'},
+		{src:'green-up-arrow.png',id:'prev'},
+		{src: 'llamada.jpg', id: 'callBt'},
+		{src:'borraContact.jpg',id:'deleteBt'}
 
     ];
 
@@ -229,6 +233,7 @@ function fullscreen() {
 
 
 function resize() {
+	if(stage){
   	stage.canvas.width = window.innerWidth;
 	stage.canvas.height = window.innerHeight;
 	content.regX = w/2
@@ -237,7 +242,8 @@ function resize() {
     content.scaleY = stage.canvas.height/h;
     content.x = stage.canvas.width/2;
     content.y = stage.canvas.height/2;
-    console.log(stage.canvas.height + "," + h);
+	console.log(stage.canvas.height + "," + h);
+	}	
 }
 //----------------------------------
 // MAP FUNCTIONS
@@ -312,11 +318,16 @@ function loadAudio() {
 	var assetsPath = 'assets/audio/';
     sounds = [{
         src: 'El inspector (Tema de entrada).mp3',
-        id: '1',
+        id: 'tema1',
         loop: 1
     }, {
         src: 'Boiiing.mp3',
-        id: '2',
+        id: 'efecto1',
+        loop: -1
+	},
+	{
+        src: 'borraDisparo.mp3',
+        id: 'efecto2',
         loop: -1
     }];
     createjs.Sound.alternateExtensions = ['mp3']; //mp3 //add other extensions to try loading if the src file extension is not supported
@@ -338,7 +349,7 @@ function playSound(target) {
 		 instanciaSonido=createjs.Sound.createInstance(target);
 	}
 	//Play the sound: play (src, interrupt, delay, offset, loop, volume, pan)
-	if(instanciaSonido.playState==="playFinished"&instanciaSonido.playState!=="playSucceeded"){
+	if(audiosLoaded){
 		instanciaSonido=createjs.Sound.play(target);
 	}
 	else if(instanciaSonido.position<instanciaSonido.duration){
