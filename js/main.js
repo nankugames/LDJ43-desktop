@@ -66,7 +66,9 @@ var hotspots = [
 
 ];
 
-
+var audiosLoaded=false;
+var instanciaSonido;
+var PlayerAtScreenView="Top"; //"Bottom"
 
 window.addEventListener('resize', resize, false);
 
@@ -74,31 +76,42 @@ window.addEventListener('resize', resize, false);
 window.addEventListener("mousemove", function(e) {
 	if (e.screenY > 900) {
 		content.y = -stage.canvas.height/2;
-		this.console.log(stage.canvas.height + "," + h);
+		PlayerAtScreenView="Bottom";
+		this.console.log(stage.canvas.height + "," + h+ ".Por mouse en "+PlayerAtScreenView);
 	}
 	if (e.screenY < 200) {
 		content.y = h/4;
-		this.console.log(stage.canvas.height + "," + h);
+		PlayerAtScreenView="Top";
+		this.console.log(stage.canvas.height + "," + h+ ".Por mouse en "+PlayerAtScreenView);
 	}
 });
 
 
 window.addEventListener('click', function(e) {
-	if (e.clientY > screenTop/2+200) {
+	if (e.clientY > 800 &PlayerAtScreenView=="Top") {
 		content.y = -stage.canvas.height/2;
-		if(e.clientX<200){
-			loadMobile();
+		PlayerAtScreenView="Bottom";
+		this.console.log(stage.canvas.height + "," + h+ ". Por click en "+e.clientY+"px estoy en"+PlayerAtScreenView);
+	}
+	if (e.clientY < 300&PlayerAtScreenView=="Bottom") {
+		content.y = h/4;
+		PlayerAtScreenView="Top";
+		this.console.log(stage.canvas.height + "," + h+ ". Por click en "+e.clientY+"px estoy en"+PlayerAtScreenView);
+	}
+	if(PlayerAtScreenView=="Bottom"){
+		if(e.clientX<200&!mobileActive){
+		loadMobile();
 		}
-		else if(e.clientX>stage.canvas.width-200){
-			loadNotebook();
+		else if(e.clientX>stage.canvas.width-200&!notebookActive){
+		loadNotebook();
 		} 
 	}
-	if (e.clientY < stage.canvas.height/2+stage.canvas.height/4) {
-		content.y = h/4;
-		if(e.clientX>200&e.clientX<400){
-			loadMap();
+	if(PlayerAtScreenView=="Top"){
+		if(e.clientX>200 & e.clientX<400){
+		loadMap();
 		}
-	}
+	}	
+
 });
 
 function init() {
@@ -164,10 +177,7 @@ function handleTick() {
 	stage.update();
 	console.log("TICK HANDLED");
 }
-/*function tick() {
-	stage.update();
-	console.log("TICK UPDATE");
-}	*/
+
 //----------------------------------
 // BEGIN FUNCTIONS
 //----------------------------------
@@ -183,7 +193,11 @@ function loadImages() {
         {src: 'black-ball.png', id: 'blackBall'},
 		{src: 'green-ball.png', id: 'greenBall'},
 		{src: 'audioButton.png', id: 'audioBt'},
-		{src: 'movil.png', id: 'bgMobile'}
+		{src: 'Movil_contactos.png', id: 'bgMobile'},
+		{src: 'cerrar.jpg', id: 'closeBt'},
+		{src: 'movil_investigar.png', id: 'mobileDecide'},
+		{src: 'bgNotebook.jpg', id: 'bgNotebook'}
+
     ];
 
     for (i=20;i<=20;i++) {
@@ -311,7 +325,8 @@ function loadAudio() {
 }
 function soundLoaded(event) {
 	console.log("LOADED AUDIO FILES");
-	instanciaSonido = createjs.Sound.play(event.id);
+	audiosLoaded=true;
+	instanciaSonido = createjs.Sound.createInstance(event.id);
 }
 function stop() {
 	if(instanciaSonido){
@@ -319,6 +334,9 @@ function stop() {
 	}
 }
 function playSound(target) {	
+	if(!instanciaSonido){
+		 instanciaSonido=createjs.Sound.createInstance(target);
+	}
 	//Play the sound: play (src, interrupt, delay, offset, loop, volume, pan)
 	if(instanciaSonido.playState==="playFinished"&instanciaSonido.playState!=="playSucceeded"){
 		instanciaSonido=createjs.Sound.play(target);
