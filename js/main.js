@@ -103,35 +103,41 @@ var hotspots = [
 
 var audiosLoaded=false;
 var instanciaSonido;
+var botonMusica;
 var PlayerAtScreenView="Top"; //"Bottom"
 
 window.addEventListener('resize', resize, false);
 
 // PARA VERSION DESKTOP
 window.addEventListener("mousemove", function(e) {
-    if(typeof content!== 'undefined'){
-	if (e.screenY > 980) {
-		content.y = -stage.canvas.height/2;
-		PlayerAtScreenView="Bottom";
+    if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
+	if (e.screenY > 980&PlayerAtScreenView=="Top") {
+		content.y = -stage.canvas.height;
+        PlayerAtScreenView="Bottom";
+        this.console.log(stage.canvas.height + ',' + h + '-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+e.screenY );
 	}
-	if (e.screenY < 200) {
-		content.y = h/4;
-		PlayerAtScreenView="Top";	
+	if (e.screenY < 200&PlayerAtScreenView=="Bottom") {
+		content.y = 0;
+        PlayerAtScreenView="Top";	
+        this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+ e.screenY);
     }
 }
+else this.console.log("Aún no existe content o stage");
 });
 //VERSION MOVIL Y CLICKS
-/*window.addEventListener('click', function(e) {
-   // if(stage){
-	if ((e.clientY > stage.canvas.height-100) &PlayerAtScreenView=="Top") {
-		content.y = -stage.canvas.height/2;
-		PlayerAtScreenView="Bottom";
+window.addEventListener('click', function(e) {
+   if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
+	if ((e.clientY > 980) &PlayerAtScreenView=="Top") { //stage.canvas.height-100
+		content.y = -stage.canvas.height;
+        PlayerAtScreenView="Bottom";
+        this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
 	}
-	if (e.clientY < 100&PlayerAtScreenView=="Bottom") {
-		content.y = h/4;
-		PlayerAtScreenView="Top";
+	if (e.clientY < 200&PlayerAtScreenView=="Bottom") {
+		content.y = 0;
+        PlayerAtScreenView="Top";
+        this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
 	}
-	if(PlayerAtScreenView=="Bottom"){
+/*	if(PlayerAtScreenView=="Bottom"){
 		if(e.clientX<200&!mobileActive&!notebookActive){
 		loadMobile();
 		}
@@ -140,12 +146,13 @@ window.addEventListener("mousemove", function(e) {
 		} 
 	}
 	if(PlayerAtScreenView=="Top"){
-		if(e.clientX>200 & e.clientX<400){
-		loadMap();
+		if(e.clientX<100&e.clientY<100){ //suena al pinchar en la esquina de arriba
+            loadMap();
 		}
-	}	
-  //  }
-});*/
+	}*/	
+  }
+  else this.console.log("Aun no existe content o stage");
+});
 function init() {
 
 	stage = new createjs.Stage("mainCanvas");
@@ -285,8 +292,8 @@ function init() {
     dialog.txtOK.addEventListener('mouseout', function(e) {
         e.currentTarget.color = '#FFF';
     });
-    dialog.txtOK.addEventListener('click', function(e) {  //ANOTA EN LIBRETA?
-        addClue(dialog.txt.text,iActualContact);
+    dialog.txtOK.addEventListener('click', function(e) {  
+        if(typeof quiz!=='undefined'&&typeof quiz[quiz.i]!=='undefined'){
         dialog.txtOK.text = "-" + quiz[quiz.i].answer[0].value + _t.minutes;
 
         dialog.txtOK.visible = false;
@@ -302,9 +309,13 @@ function init() {
             } else {
                 dialog.visible = false; 
             }
-        }, 3000)
-
+        }, 3000);
         updateTime(time - quiz[quiz.i].answer[0].value);
+        }
+        else console.log("No existe quiz o quiz(i)");
+        addClue(dialog.txt.text,iActualContact); //ANOTA EN LIBRETA id?
+
+        
     });
 
     dialog.txtKO = new createjs.Text('');
@@ -352,26 +363,26 @@ function init() {
 
     dialog.cursor = 'pointer';
     dialog.visible = false;
+    //FIN MAPS
 
-    mobile.y = 1900;
+    mobile.y = 1900;// JNO stage.canvas.heigt-200;
     mobile.x = 400;
     mobile.visible = false;
-    mobile.addEventListener('click', function(e) { //JNO:COMBINAR CON BOTONES?
+    mobile.addEventListener('click', function(e) { 
         e.currentTarget.visible = false;
         bkgMobile.visible = true;
-        loadMobile();
     });
 
-    notebook.y = 1900;
+    notebook.y = 1900;//stage.canvas.height*2+stage.canvas.height-50;JNO
     notebook.x = 80;
     notebook.visible = false;
-    notebook.addEventListener('click', function(e) {//JNO:COMBINAR CON BOTONES?
+    notebook.addEventListener('click', function(e) {
         e.currentTarget.visible = false;
         bkgNotebook.visible = true;
-        loadNotebook();
+        
     });
 
-    bkgMobile.y = 2161;
+    bkgMobile.y = 2161;//stage.canvas.height*2+stage.canvas.height-50;JNO
     bkgMobile.cursor = 'pointer';
     bkgMobile.addEventListener('mouseover', function(e) {
         e.currentTarget.image = loader.getResult('bkgMobileOn');
@@ -380,14 +391,17 @@ function init() {
     bkgMobile.addEventListener('mouseout', function(e) {
         e.currentTarget.image = loader.getResult('bkgMobile');
     });
-    bkgMobile.addEventListener('click', function(e) {//JNO:COMBINAR CON BOTONES?
-        e.currentTarget.visible = false;
-        mobile.visible = true;
-        loadMobile();
+    bkgMobile.addEventListener('click', function(e) {//JNO:COMBINAR CON BOTONES
+        if(!notebookActive&!mobileActive){
+            e.currentTarget.visible = false;
+            mobile.visible = true;
+            mobileActive=true;
+            loadMobile();
+        }
     });
 
     bkgNotebook.x = 1080;
-    bkgNotebook.y = 2036;
+    bkgNotebook.y = 2036;//JNO 2*stage.canvas.height;
     bkgNotebook.cursor = 'pointer';
     bkgNotebook.addEventListener('mouseover', function(e) {
         e.currentTarget.image = loader.getResult('bkgNotebookOn');
@@ -396,12 +410,15 @@ function init() {
     bkgNotebook.addEventListener('mouseout', function(e) {
         e.currentTarget.image = loader.getResult('bkgNotebook');
     });
-    bkgNotebook.addEventListener('click', function(e) {//JNO:COMBINAR CON BOTONES?
-        e.currentTarget.visible = false;
-        notebook.visible = true;
-        loadNotebook();
+    bkgNotebook.addEventListener('click', function(e) {//JNO:COMBINAR CON BOTONES
+       if(!notebookActive&!mobileActive){
+            e.currentTarget.visible = false;
+            notebook.visible = true;
+            notebookActive=true;
+            loadNotebook();
+        }
     });
-	//FIN MAPS
+    
 
     content.addChild(bkg);
     content.addChild(bkgMobile);
@@ -440,6 +457,14 @@ function init() {
 
     content.addChild(notebook);
     content.addChild(mobile);
+//boton audio
+botonMusica = new createjs.Bitmap(loader.getResult('audioBt'));
+botonMusica.x= 0;//window.innerWidthAjustado por escala 3 del fondo
+botonMusica.y= 0;//window.innerHeight/3;
+botonMusica.scaleX = 0.25;
+botonMusica.scaleY=0.25;
+content.addChild(botonMusica); 
+botonMusica.addEventListener('click',function(){playSound("tema1");});
 
     content.addChild(click);
     resize();
@@ -448,7 +473,7 @@ function init() {
 	loadAudio();
 
 	
-	createjs.Ticker.addEventListener("tick", stage);
+	//createjs.Ticker.addEventListener("tick", stage);
 	createjs.Ticker.addEventListener("tick", handleTick);
 	
 }
@@ -497,10 +522,10 @@ function handleTick() {
 	stage.update();
 	//console.log("TICK HANDLED");
 }
-function tick() {
+/*function tick() {
     stage.update();
     console.log('Tick actualizado')
-}
+}*/
 
 //----------------------------------
 // BEGIN FUNCTIONS
@@ -627,6 +652,7 @@ function resize() {
     content.x = stage.canvas.width / 2;
     content.y = 0;
 }
+    else console.log("resize no tiene content creado");
 }
 //----------------------------------
 // MAP FUNCTIONS

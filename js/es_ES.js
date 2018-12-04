@@ -338,73 +338,145 @@ var _t = {
 			quizOK: '',
 			quiz0val: 5,
 			quiz1val: 10
-		},
+		}
 
 	}
 
 }
 /* PENDIENTE DE ACTUALIZAR CON EL GUION Y COMPLETAR LOS 17 CONTACTOS (DEFINIDO EN MOVIL.JS)
 var contacts=[{
-    idImage:"contact1",
-    infoArray:["Pista1:Me parecio ver un lindo gatito","Pista2:Era una rata","Pista3:Me la comi igualmente"],
-    indexInfo:0,
-    siteMaplocation:"Su casa",
-    suspect:false,
-    guilty:true
+        idImage:"contact1",
+        infoArray:["Pista1:Me parecio ver un lindo gatito","Pista2:Era una rata","Pista3:Me la comi igualmente"],
+        indexInfo:0,
+        siteMaplocation:"Su casa",
+        suspect:false,
+        guilty:true
+    },
+    {
+        idImage:"contact2",
+        infoArray:["Pista1:Se huele la tostada","Pista2:No habia luz","Pista3:Me dolia la almendra del ruido de la calle"],
+        indexInfo:0,
+        siteMaplocation:"Mi casa",
+        suspect:true,
+        guilty:false
 },
 {
-    idImage:"contact2",
-    infoArray:["Pista1:Se huele la tostada","Pista2:No habia luz","Pista3:Me dolia la almendra del ruido de la calle"],
+    idImage:"contact3",
+    infoArray:["Pista1:Puso la cesta encima de la mesa","Pista2:Estaba todo mojado","Pista3:Me asusta la gente vieja"],
     indexInfo:0,
-    siteMaplocation:"Mi casa",
+    siteMaplocation:"casa3",
     suspect:true,
     guilty:false
 },
 {
-idImage:"contact3",
-infoArray:["Pista1:Se huele la tostada","Pista2:No habia luz","Pista3:Me dolia la almendra del ruido de la calle"],
-indexInfo:0,
-siteMaplocation:"casa3",
-suspect:true,
-guilty:false
+    idImage:"contact4",
+    infoArray:["Pista1:Sandias","Pista2:Pezespada","Pista3:Obtuso"],
+    indexInfo:0,
+    siteMaplocation:"casa4",
+    suspect:true,
+    guilty:false
 },
 {
-idImage:"contact4",
-infoArray:["Pista1:Sandias","Pista2:Pezespada","Pista3:Obtuso"],
-indexInfo:0,
-siteMaplocation:"casa4",
-suspect:true,
-guilty:false
+    idImage:"contact5",
+    infoArray:["Pista1:Al final me salio rana","Pista2:Todos lo decian,no era de fiar","Se nos rompio el amor"],
+    indexInfo:0,
+    siteMaplocation:"casa5",
+    suspect:true,
+    guilty:false
 },
 {
-idImage:"contact5",
-infoArray:["Pista1:fdafbb","Pista2:tejhgdfds","cvgghhh"],
-indexInfo:0,
-siteMaplocation:"casa5",
-suspect:true,
-guilty:false
+    idImage:"contact6",
+    infoArray:["Pista1:Axo que es","Pista2:A maquesta cara que tens","Pista3:Prou!"],
+    indexInfo:0,
+    siteMaplocation:"casa6",
+    suspect:true,
+    guilty:false
 },
 {
-idImage:"contact6",
-infoArray:["Pista1:advv","Pista2:ntgdvjka55","Pista3:456"],
-indexInfo:0,
-siteMaplocation:"casa6",
-suspect:true,
-guilty:false
+    idImage:"contact7",
+    infoArray:["Pista1:Dejame no tengo tiempo","Pista2:No me importa la gente","Pista3:Solo me importas tu"],
+    indexInfo:0,
+    siteMaplocation:"casa7",
+    suspect:true,
+    guilty:false
 },
 {
-idImage:"contact7",
-infoArray:["Pista1:Sebbbrr","Pista2:xcfgds","Pista3:dbbnhgdddsa"],
-indexInfo:0,
-siteMaplocation:"casa7",
-suspect:true,
-guilty:false
+    idImage:"contact8",
+    infoArray:["Pista1:Whoper Junior sin queso","Pista2:Las patatas normales o deluxe?","Pista3:Caminante no hay camino"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
 },
 {
-idImage:"contact8",
-infoArray:["Pista1:padfjapd","Pista2:dfads","Pista3:dfadsfa"],
-indexInfo:0,
-siteMaplocation:"casa8",
-suspect:true,
-guilty:false
-}]; */
+    idImage:"contact9",
+    infoArray:["Pista1:Porque es azul como el mar, azul","Pista2:Vivimos todos en un estado policial","Pista3:Vivo en el mejor de los mundos"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact10",
+    infoArray:["Pista1:Palabras mas, palabras menos","Pista2:Nada de lo que diga podra ser usado en mi contra","Pista3:Tengo derecho a permanecer en silencio"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact11",
+    infoArray:["Pista1:Holi","Pista2:Me dan miedo las noches","Pista3:Me asustan las mañanas"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact12",
+    infoArray:["Pista1:El final del verano","Pista2:El verano ya esta aqui","Pista3:Boooooomba"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact13",
+    infoArray:["Pista1:Tra, tra","Pista2:¿Habeis escuchado a Rosalia, yo no","Pista3:En el pais de los tuertos..."],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact14",
+    infoArray:["Pista1:Me estoy quedando sin yemas","Pista2:Y no de los dedos","Pista3:Soy transespecie"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact15",
+    infoArray:["Pista1:Solo quiere ver arder el mundo","Pista2:Ahora vais a conocer el terror","Pista3:Tira para la batcueva"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact16",
+    infoArray:["Pista1:Se que no estoy en mi jucio","Pista2:...que me falta inspiracion","Pista3:Cambio las cosas de sitio"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+},
+{
+    idImage:"contact17",
+    infoArray:["Pista1:Pues hasta aqui hemos llegado","¿Pista2:A quien vas a llamar?","Pista3:Ghostbuster!"],
+    indexInfo:0,
+    siteMaplocation:"casa8",
+    suspect:true,
+    guilty:false
+}];*/

@@ -17,23 +17,23 @@ function loadNotebook(){
     content.addChild(notebookC);
     //notebookC.addChild(notebook);
     closeButton2=new createjs.Bitmap(loader.getResult('closeBt'));
-    closeButton2.x=0;
+    closeButton2.x=80;
     closeButton2.y=0;
     notebookC.addChild(closeButton2);
     closeButton2.addEventListener("click",closeNotebook);
     
 
-    message_notebook = new createjs.Text("Pistas: Info");
+    message_notebook = new createjs.Text("Pistas/Info");
     message_notebook.font ="36px BrotherDeluxe";
     message_notebook.color = "#99402D";
-	message_notebook.x = window.innerWidth/100; 
+	message_notebook.x = window.innerWidth/4; 
     message_notebook.y = window.innerHeight/8;
     message_notebook.maxWidth=window.innerWidth;
     notebookC.addChild(message_notebook);
     for(var q in clues){
         notebookC.addChild(clues[q]);
     }
-    notebookActive=true;
+   
    // }
  //}
 }
@@ -44,6 +44,8 @@ function closeNotebook(){
     notebookC.removeChild(message_notebook);
     content.removeChild(notebookC);
     notebookActive=false;
+    notebook.visible=false;
+    bkgNotebook.visible = true;
 }
 
 function addClue(textClue,idWitness){
