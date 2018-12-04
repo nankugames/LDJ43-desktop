@@ -10,9 +10,18 @@ var lastPath = {};
 var lastPin = {};
 var previousLastPin = {};
 
-var initCarPosition = 22;
+var initCarPosition = 20;
 
 var hotspotPaths = {
+    7: {},
+    5: {},
+    10: {},
+    15: {},
+
+    16: {
+        20: { x:560, y:1050, distance: 2 },
+        21: { x:700, y:1100, distance: 2 }
+    },
     20: {
         1: { x:520, y:644, distance: 6 }, 
         2: { x:530, y:680, distance: 6 }, 
@@ -28,10 +37,6 @@ var hotspotPaths = {
         22: { x:560, y:1050, distance: 5 }, 
         23: { x:565, y:1055, distance: 6 }
     },
-    16: {
-        20: { x:560, y:1050, distance: 2 },
-        21: { x:700, y:1100, distance: 2 }
-    },
     21: {
         16: { x:700, y:1100, distance: 2 },
         22: { x:800, y:1180, distance: 2 },
@@ -40,26 +45,27 @@ var hotspotPaths = {
         24: { x:800, y:1175, distance: 6 },
         25: { x:800, y:1150, distance: 8 },
         18: { x:802, y:1085, distance: 9 },
-        13: { x:800, y:1070, distance: 11 }
+        //13: { x:800, y:1070, distance: 11 }
     },
     22: {
+        /*
         18: { x:902, y:1085, distance: 9 },
         24: { x:904, y:1214, distance: 6 },
         25: { x:900, y:1150, distance: 8 },
         13: { x:915, y:975, distance: 8 },
         8: { x:914, y:830, distance: 8 },
-        26: { x:900, y:1150, distance: 8 },
+        //26: { x:900, y:1150, distance: 8 },
         23: { x:910, y:1130, distance: 8 },
         17: { x:915, y:1070, distance: 8 },
         11: { x:830, y:930, distance: 8 },
         12: { x:815, y:860, distance: 8 },
         19: { x:915, y:970, distance: 8 },
         27: { x:915, y:950, distance: 8 },
+        */
     }
 }
 
 var hotspots = [
-
     { x: 560, y:580 },
     { x: 810, y:600 },
     { x: 993, y:660 },
@@ -267,22 +273,24 @@ function init() {
 
     dialog = new createjs.Container();
     dialog.bkg = new createjs.Bitmap(loader.getResult('dialog'));
-    dialog.x = 30;
+    dialog.regX = 1230 / 2;
+    dialog.x = window.innerWidth / 2;
+
     dialog.y = stage.canvas.height - 740;
     dialog.bkg.alpha = 0.7
     dialog.txt = new createjs.Text('');
     dialog.txt.font = '20px Commodore64P';
     dialog.txt.color = '#FFF';
-    dialog.txt.x = 30;
-    dialog.txt.y = 25;
+    dialog.txt.x = 40;
+    dialog.txt.y = 40;
     dialog.txt.lineWidth = 1100;
 
     dialog.txtOK = new createjs.Text('');
     dialog.txtOK.font = '26px Commodore64P';
     dialog.txtOK.color = '#FFF';
-    dialog.txtOK.textAlign = 'center';
-    dialog.txtOK.x = 250;
-    dialog.txtOK.y = 280;
+    dialog.txtOK.x = 40;
+    dialog.txtOK.y = 240;
+
     dialog.txtOK.addEventListener('mouseover', function(e) {
         e.currentTarget.color = '#FFFF00';
     });
@@ -290,15 +298,31 @@ function init() {
         e.currentTarget.color = '#FFF';
     });
     dialog.txtOK.addEventListener('click', function(e) {
-        dialog.visible = false;
+        dialog.txtOK.text = "-" + quiz[quiz.i].answer[0].value + _t.minutes;
+
+        dialog.txtOK.visible = false;
+        setTimeout(function(){ dialog.txtOK.visible = true; }, 500)
+        setTimeout(function(){ dialog.txtOK.visible = false; }, 1000)
+        setTimeout(function(){ dialog.txtOK.visible = true; }, 1500)
+        setTimeout(function(){ dialog.txtOK.visible = false; }, 2000)
+        setTimeout(function(){ dialog.txtOK.visible = true; }, 2500)
+        setTimeout(function() {
+            quiz.i++; 
+            if (quiz[quiz.i]) {
+                nextQuiz(quiz);
+            } else {
+                dialog.visible = false; 
+            }
+        }, 3000)
+
+        updateTime(time - quiz[quiz.i].answer[0].value);
     });
 
     dialog.txtKO = new createjs.Text('');
     dialog.txtKO.font = '26px Commodore64P';
     dialog.txtKO.color = '#FFF';
-    dialog.txtKO.textAlign = 'center';
     dialog.txtKO.cursor = 'pointer';
-    dialog.txtKO.x = 850;
+    dialog.txtKO.x = 40;
     dialog.txtKO.y = 280;
     dialog.txtKO.addEventListener('mouseover', function(e) {
         e.currentTarget.color = '#FFFF00';
@@ -307,6 +331,33 @@ function init() {
         e.currentTarget.color = '#FFF';
     });
     dialog.txtKO.addEventListener('click', function(e) {
+        dialog.txtKO.text = "-" + quiz[quiz.i].answer[1].value + _t.minutes;
+
+        dialog.txtKO.visible = false;
+        setTimeout(function(){ dialog.txtKO.visible = true; }, 500)
+        setTimeout(function(){ dialog.txtKO.visible = false; }, 1000)
+        setTimeout(function(){ dialog.txtKO.visible = true; }, 1500)
+        setTimeout(function(){ dialog.txtKO.visible = false; }, 2000)
+        setTimeout(function(){ dialog.txtKO.visible = true; }, 2500)
+        setTimeout(function(){ dialog.visible = false; }, 3000)
+
+        updateTime(time - quiz[quiz.i].answer[1].value);
+    });
+
+    dialog.txtNext = new createjs.Text('Le llamaré al móvil...');
+    dialog.txtNext.font = '26px Commodore64P';
+    dialog.txtNext.color = '#FFF';
+    dialog.txtNext.cursor = 'pointer';
+    dialog.txtNext.x = 40;
+    dialog.txtNext.y = 280;
+    dialog.txtNext.addEventListener('mouseover', function(e) {
+        e.currentTarget.color = '#FFFF00';
+    });
+    dialog.txtNext.addEventListener('mouseout', function(e) {
+        e.currentTarget.color = '#FFF';
+    });
+    dialog.txtNext.addEventListener('click', function(e) {
+        dialog.txtNext.visible = false;
         dialog.visible = false;
     });
 
@@ -390,6 +441,7 @@ function init() {
     dialog.addChild(dialog.txt);
     dialog.addChild(dialog.txtOK);
     dialog.addChild(dialog.txtKO);
+    dialog.addChild(dialog.txtNext);
 
     content.addChild(notebook);
     content.addChild(mobile);
@@ -425,13 +477,39 @@ function loadImages() {
         {src: 'blue-pin.png', id: 'overOKPin'},
         {src: 'black-pin.png', id: 'overKOPin'},
         {src: 'gold-pin.png', id: 'selectedPin'},
-        {src: 'gray-ball.png', id: 'greyBall'},
-        {src: 'black-ball.png', id: 'blackBall'},
-        {src: 'green-ball.png', id: 'greenBall'},
-
-        {src: 'sketch-24.png', id: 'sketch24'},
-        {src: 'sketch-16.png', id: 'sketch16'},
+        {src: '1x1.png', id: 'sketch1'},
+        {src: '1x1.png', id: 'sketch2'},
+        {src: '1x1.png', id: 'sketch3'},
+        {src: '1x1.png', id: 'sketch4'},
+        {src: '1x1.png', id: 'sketch5'},
+        {src: '1x1.png', id: 'sketch6'},
+        {src: '1x1.png', id: 'sketch7'},
+        {src: '1x1.png', id: 'sketch8'},
+        {src: '1x1.png', id: 'sketch9'},
+        {src: '1x1.png', id: 'sketch10'},
+        {src: '1x1.png', id: 'sketch11'},
         {src: 'sketch-semaforo.png', id: 'sketch12'},
+        {src: '1x1.png', id: 'sketch13'},
+        {src: '1x1.png', id: 'sketch14'},
+        {src: '1x1.png', id: 'sketch15'},
+        {src: '1x1.png', id: 'sketch16'},
+        {src: '1x1.png', id: 'sketch17'},
+        {src: '1x1.png', id: 'sketch18'},
+        {src: '1x1.png', id: 'sketch19'},
+        {src: '1x1.png', id: 'sketch20'},
+        {src: '1x1.png', id: 'sketch21'},
+        {src: '1x1.png', id: 'sketch22'},
+        {src: '1x1.png', id: 'sketch23'},
+        {src: '1x1.png', id: 'sketch24'},
+        {src: '1x1.png', id: 'sketch25'},
+        {src: '1x1.png', id: 'sketch26'},
+        {src: '1x1.png', id: 'sketch27'},
+        {src: '1x1.png', id: 'sketch28'},
+
+        {src: 'phone/partner.png', id: 'partner'},
+        {src: 'text-box.png', id: 'textBox'},
+        {src: 'text-box.png', id: 'textBox'},
+
     ];
 
     for (i in hotspotPaths) {
@@ -489,13 +567,49 @@ function moveCar(timeLeft) {
         clearInterval(moveCarRun);
         clearInterval(moveCarReset);
 
-        dialog.txt.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        dialog.txtOK.text = "Ok. Allé voy";
-        dialog.txtKO.text = "What????";
-        dialog.visible = true;
+
+        hpt = _t.hotspots[lastPin.id];
+
+        dialog.txtNext.visible = false;
+        nextQuiz(hpt.quiz);
     }
 
 
+}
+
+function nextQuiz(q) {
+    if (!q.i) q.i = 0;
+
+    dialog.txtOK.text = dialog.txtKO.text = '';
+
+    quiz = q;
+    dialog.txt.text = q[q.i].text;
+    if (q[q.i].answer && q[q.i].answer[0].text) {
+        dialog.txtOK.text = q[q.i].answer[0].text;
+    }
+    if (q[q.i].answer && q[q.i].answer[1].text) {
+        dialog.txtKO.text = q[q.i].answer[1].text;
+    }
+
+    dialog.txtOK.hit = new createjs.Shape();
+    dialog.txtOK.hit.graphics.beginFill("#000").drawRect(0, 0, dialog.txtOK.getMeasuredWidth(), dialog.txtOK.getMeasuredHeight());
+    dialog.txtOK.hitArea = dialog.txtOK.hit;
+    dialog.txtOK.hit.cursor = 'pointer';
+
+    dialog.txtKO.hit = new createjs.Shape();
+    dialog.txtKO.hit.graphics.beginFill("#000").drawRect(0, 0, dialog.txtKO.getMeasuredWidth(), dialog.txtKO.getMeasuredHeight());
+    dialog.txtKO.hitArea = dialog.txtKO.hit;
+    dialog.txtKO.hit.cursor = 'pointer';
+
+    if (dialog.txtOK.text == '') {
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 2500)
+        setTimeout(function(){ dialog.txtNext.visible = false; }, 3000)
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 3500)
+        setTimeout(function(){ dialog.txtNext.visible = false; }, 4000)
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 4500)
+    }
+
+    dialog.visible = true;
 }
 
 function updateTime(t) {
@@ -523,7 +637,6 @@ function loadHotspots() {
 
     for (i=0; i<hotspots.length;i++) {
         var hp = hotspots[i];
-        //hp.bmp = new createjs.Bitmap(loader.getResult('greyBall'));
         hp.bmp = new createjs.Bitmap(loader.getResult('idlePin'));
         if (i == initCarPosition-1) {
             lastPin = previousLastPin = hp.bmp;
@@ -657,12 +770,9 @@ function resize() {
     stage.canvas.width = window.innerWidth;
     stage.canvas.height = window.innerHeight;
     content.regX = w / 2
-    //content.regY = h / 2;
     content.scaleX = content.scaleY = stage.canvas.height / h;
-    //content.scaleY = stage.canvas.height / h;
     content.x = stage.canvas.width / 2;
     content.y = 0;
-    //content.y = 740 / 2 - 100;
 }
 
 //FUNCIONES DE SONIDO

@@ -4,6 +4,37 @@ var _t = {
 	toofar: 'Demasiado lejos',
 	minutes: 'Minutos',
 
+	start: [
+		{
+			text: 'Era una tarde cualquiera en la ciudad de Detroit. La tarde empezaba a decaer y los ciudadanos salían cansados de sus trabajos. Pero no yo. En la ciudad del motor el crimen no descansa. Por lo tanto, yo tampoco.'
+		},
+		{
+			text: 'Me llamo Dolores Jackson. Trabajo en una centralita de la policía metropolitana. Recibo llamadas de emergencia y mando a nuestra patrulla a llegar al lugar del crimen. El teléfono es mi herramienta de trabajo. He oído de todo a través de él e incluso he ayudado a resolver crímenes a través del altavoz. Soy, lo que podría llamarse, una detective telefónica.'
+		},
+		{
+			text: 'Pero nada me había preparado para el caso que llegaría ese día...'
+		},
+		{
+			type: 'phone',
+			text: 'Era la voz rota de un muchacho. Me contó que alguien le había raptado esa mañana. Le habían metido en un maletero y le habían llevado a un lugar desconocido. El raptor le acababa de encerrar en una caja y le había dado un móvil. Había oído cómo le enterraba bajo tierra.'
+		},
+		{
+			text: 'Escuché sobrecogida. No era la primera vez que oía aquello. Era el modus operandi del Enterrador, un asesino de niños que había matado ya a cuatro. Enterraba a los chicos y a los noventa minutos se les acababa el oxígeno. Uno de ellos fue... mi propio hijo.'
+		},
+		{
+			text: 'Se burlaba de la policía hasta el punto de darles un móvil a sus víctimas para que llamaran. Estaba modificado para solo poder enviar llamadas a la policía. Sabía que no podía ser capturado. Pero me prometí que esa noche el Enterrador dormiría tras las rejas. Por ese pobre chico… y por mi hijo.'
+		},
+		{
+			text: 'El muchacho estaba histérico, pero conseguí calmarle y que me dijese su dirección. Se llamaba Thomas Smith y tenía 14 años. Pero justo entonces la señal comenzó a interrumpirse. El chico estaba bajo tierra, la comunicación sería difícil. Justo cuando la llamada se cortó se me heló la sangre.'
+		},
+		{
+			text: 'Pero debía tranquilizarme, ese joven dependía de mí. Deduje que debía estar oculto en algún lugar solitario, enterrar a alguien es una labor larga y difícil de ocultar. De momento lo único que podía hacer era mandar al coche patrulla a casa del chico e intentar reconstruir su día hasta que le atraparon.'
+		},
+		{
+			text: 'Había empezado la caza.'
+		}
+	],
+
 	hotspots: {
 		20: {
 			title: 'Casa familiar',
@@ -20,12 +51,42 @@ var _t = {
 		16: {
 			title: 'Colegio público',
 			text: 'Un colegio al alcance de todos. Tiene una enorme saturación de alumnos y un historial de rivalidad con el otro colegio de la ciudad.',
-			quiz: 'En el colegio el profesor de Thomas me confirmó que el chico no llegó a entrar en su clase. Afirmó no saber nada del muchacho, pero Thomas siempre andaba con un compañero de clase que tampoco había asistido...',
-			quiz0: 'Recriminarle no avisar a los padres',
-			quiz1: 'Agradecer su cooperación',
-			quizOK: 'Al final nos dio el teléfono del chico, seguramente sabría algo. Me decidí a llamarle inmediatamente desde el teléfono.',
-			quiz0val: 5,
-			quiz1val: 10
+			quiz: [
+				{
+					text: 'En el colegio el profesor de Thomas me confirmó que el chico no llegó a entrar en su clase. Afirmó no saber nada del muchacho, pero Thomas siempre andaba con un compañero de clase que tampoco había asistido...',
+					answer: [
+						{ 
+							value: 5,
+							text: 'Recriminarle no avisar a los padres'
+						},
+						{
+							value: 10,
+							text: 'Agradecer su cooperación'
+						}
+					]			
+				},
+				{
+					text: 'Al final nos dio el teléfono del chico, seguramente sabría algo. Me decidí a llamarle inmediatamente desde el teléfono.'
+				},
+				{
+					type: 'phone-in',
+					contact: 'partner',
+					text: 'El chico reaccionó con tanta sorpresa como la familia de Thomas. Me contó que esa mañana Thomas y él faltaron a clase y fueron a pasar el rato a un centro comercial. Pero no recordaba cómo se llamaba el centro...',
+					answer: [
+						{ 
+							value: 5,
+							text: 'Presionarle'
+						},
+						{
+							value: 10,
+							text: 'Pedir que recuerde algo que hicieran.'
+						}
+					]	
+				},
+				{
+					text: 'El chico recordó entonces que estuvieron un buen rato jugando a una recreativa: “Fatal Fury”. Luego se separaron, imaginó que volvió a su casa. Con la información que me dio adiviné a qué centro comercial se refería.'
+				}
+			]
 		},
 		10: {
 			title: 'Centro comercial de moda',
@@ -70,10 +131,10 @@ var _t = {
 		24: {
 			title: 'Parque al aire libre',
 			text: 'Entre tanto coche muchos disfrutan haciendo actividades al aire libre. Se suelen jugar desde partidos de fútbol hasta a la petanca.',
-			quiz: '',
-			quiz0: '',
-			quiz1: '',
-			quizOK: '',
+			quiz: 'Mi compañero me pasó a un anciano que me confirmó que la furgoneta pasó por allí. Pero su memoria ya no es la que era y le costaba recordar con claridad...',
+			quiz0: 'Tener paciencia.',
+			quiz1: 'Presionar un poco.',
+			quizOK: 'Finalmente recordó todos los detalles y describió la furgoneta. La descripción encajaba, pero no pudo darme ningún dato de hacia dónde se dirigía.',
 			quiz0val: 5,
 			quiz1val: 10
 		},
@@ -100,20 +161,20 @@ var _t = {
 		27: {
 			title: 'Puente del Este',
 			text: 'El puente más alejado del centro, es también es de más reciente construcción. Actúa como refuerzo eficaz al tráfico norte-sur.',
-			quiz: '',
-			quiz0: '',
-			quiz1: '',
-			quizOK: '',
+			quiz: 'Mi compañero me pasó a un mendigo que aseguraba haber visto la furgoneta. Afirmaba que había visto a dónde se dirigía, pero parecía reticente a hablar gratis...',
+			quiz0: 'Seguirle el rollo',
+			quiz1: 'Acusarle de caradura',
+			quizOK: 'El mendigo finalmente me contó que vio cómo se dirigía a un almacén de bricolaje que se encontraba justo enfrente. Para variar, esta vez el objetivo estaba claro. ',
 			quiz0val: 5,
 			quiz1val: 10
 		},
 		19: {
 			title: 'Almacén de bricolaje',
 			text: 'Un almacén donde comprar desde un destornillador hasta lo necesario para fabricar una casa con tus manos.',
-			quiz: '',
-			quiz0: '',
-			quiz1: '',
-			quizOK: '',
+			quiz: 'Un gorrilla se puso al teléfono y me confirmó que le sonaba haber visto a la furgoneta detenida en el aparcamiento del almacén, pero no se fijó demasiado ni le dio importancia. No parecía un testigo muy despierto, pero estaba acostumbrada a ser específica y estimular la memoria...',
+			quiz0: 'Preguntar por conductor',
+			quiz1: 'Preguntar si pasó algo extraño',
+			quizOK: 'Entonces el gorrilla cayó en algo curioso. Recordó que dos mozos del almacén cargaron algo en la parte posterior de la furgoneta. Parecía un envío. Era una gran caja de madera.',
 			quiz0val: 5,
 			quiz1val: 10
 		},
@@ -140,10 +201,10 @@ var _t = {
 		13: {
 			title: 'Puesto de gasolina',
 			text: 'Son, literalmente, puestos para echar gasolina en la calle. Un reflejo de otra época más sencilla. Solo sirve gasolina, como manda la tradición.',
-			quiz: '',
-			quiz0: '',
-			quiz1: '',
-			quizOK: '',
+			quiz: 'Mi compañero confirmó que nadie trabajaba en el puesto de gasolina. Sin embargo, delante había un bar que acababa de cerrar. Quizás los dueños habían visto algo. Sus teléfonos estaban escritos en el toldo de entrada.',
+			quiz0: 'Contarle que hay una vida en juego',
+			quiz1: 'Interesarse por lo que está haciendo',
+			quizOK: 'La chica confirmó que había visto al vehículo, pero no se fijó en el conductor. Estaba distraída, le pareció que la furgoneta se dirigía hacia un descampado hacia el sudeste. Colgó inmediatamente y la oí discutir con niños pequeños de fondo.',
 			quiz0val: 5,
 			quiz1val: 10
 		},
