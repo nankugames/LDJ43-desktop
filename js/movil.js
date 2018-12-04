@@ -1,5 +1,5 @@
 console.log('loaded Mobile(movil.js)');
-var mobile;
+var mobileC;
 var message_mobile;
 var audioButton,audioButton2;
 var closeButton;
@@ -75,22 +75,25 @@ var contactView;
 function loadMobile(){
  
     mobileActive=true;
- if(stage){
+ //if(stage){
     console.log("Opening Mobile...");
  
   //  }
-    mobile=new createjs.Container();
-    mobile.bmp=new createjs.Bitmap(loader.getResult('bgMobile'));
-    mobile.x = stage.canvas.width/4;
-    mobile.y=window.innerHeight*2+window.innerHeight-50;
+    mobileC=new createjs.Container();
+   
+    mobileC.x = 400;//stage.canvas.width/4;
+    mobileC.y=1900;//window.innerHeight*2+window.innerHeight-50;
+    /*  mobileC.bmp=new createjs.Bitmap(loader.getResult('bgMobile'));
     mobile.bmp.scaleX=3;
     mobile.bmp.scaleY=3;
-    content.addChild(mobile);
-    mobile.addChild(mobile.bmp);
+    mobile.addChild(mobile.bmp);*/
+    content.addChild(mobileC);
+    //content.addChild(mobile); //adopta al del main 
 
     closeButton=new createjs.Bitmap(loader.getResult('closeBt'));
-    closeButton.x=window.innerWidth/3;
-    mobile.addChild(closeButton);
+    mobileC.addChild(closeButton);
+    closeButton.x=window.innerWidth;
+    closeButton.y= window.innerHeight;
     closeButton.addEventListener("click",closeMobile);
     
 //  if(typeof audioButton!== 'undefined'){ //TODO: BUTTONS CHANGE SPRITE ON/OFF
@@ -100,7 +103,7 @@ function loadMobile(){
     audioButton.y= window.innerHeight/3;
     audioButton.scaleX = 0.25;
     audioButton.scaleY=0.25;
-    mobile.addChild(audioButton);
+    mobileC.addChild(audioButton);
     audioButton.addEventListener("click",saveClue);
 
     audioButton2 = new createjs.Bitmap(loader.getResult('deleteBt'));
@@ -108,7 +111,7 @@ function loadMobile(){
     audioButton2.y= window.innerHeight/2;
     audioButton2.scaleX = 0.25;
     audioButton2.scaleY=0.25;
-    mobile.addChild(audioButton2);
+    mobileC.addChild(audioButton2);
     audioButton2.addEventListener("click",discardClue);
   
   // }
@@ -119,7 +122,7 @@ function loadMobile(){
 	message_mobile.x =window.innerWidth/3; 
     message_mobile.y = window.innerHeight-40; //36px fuente 
     message_mobile.maxWidth=window.innerWidth/2;
-    mobile.addChild(message_mobile);
+    mobileC.addChild(message_mobile);
 
     loadContact(iActualContact);
 
@@ -128,7 +131,7 @@ function loadMobile(){
     prevButton.y= window.innerHeight/2;
     prevButton.scaleX = 0.25;
     prevButton.scaleY=0.25;
-    mobile.addChild(prevButton);
+    mobileC.addChild(prevButton);
     prevButton.addEventListener("click",prevContact);
 
     nextButton = new createjs.Bitmap(loader.getResult('prev'));
@@ -136,34 +139,34 @@ function loadMobile(){
     nextButton.y= 3*window.innerHeight/4;
     nextButton.scaleX = 0.25;
     nextButton.scaleY=-0.25;
-    mobile.addChild(nextButton);
+    mobileC.addChild(nextButton);
     nextButton.addEventListener("click",nextContact);
   
- }
+// }
 }
 
 function closeMobile(){
-    mobile.removeChild(closeButton);
-    mobile.removeChild(mobile.bmp)
-    mobile.removeChild(audioButton);
-    mobile.removeChild(audioButton2);
-    mobile.removeChild(message_mobile);
-    content.removeChild(mobile);
+    mobileC.removeChild(closeButton);
+   // mobileC.removeChild(mobile.bmp)
+    mobileC.removeChild(audioButton);
+    mobileC.removeChild(audioButton2);
+    mobileC.removeChild(message_mobile);
+    content.removeChild(mobileC);
     mobileActive=false;
 }
 
 function loadContact(n){
-    if(mobile){
+    
     contactView = new createjs.Bitmap(loader.getResult(contacts[n].idImage));
     console.log("Cargando imagen de contacto: "+contacts[n].idImage);
     contactView.x =  window.innerWidth/2;
     contactView.y= window.innerHeight/2;
     contactView.scaleX = 3;
     contactView.scaleY=3;
-    mobile.addChild(contactView);
-    contactView.addEventListener('click',cambiaFondo)
+    mobileC.addChild(contactView);
+   // contactView.addEventListener('click',cambiaFondo)
     message_mobile.text=contacts[n].infoArray[contacts[n].indexInfo];
-    }
+    
 }
 
 function nextContact(){
@@ -178,17 +181,17 @@ function prevContact(){
 }
 
 function cambiaFondo(){
-    mobile.removeChild(mobile.bmp);
-    mobile.removeChild(contactView);
-    mobile.removeChild(prevButton);
-    mobile.removeChild(nextButton);
-    mobile.removeChild(audioButton);
-    mobile.removeChild(audioButton2);
-    mobile.bmp=new createjs.Bitmap(loader.getResult('mobileDecide'));
-    mobile.bmp.scaleX=3;
-    mobile.bmp.scaleY=3;
-    mobile.addChild(mobile.bmp);
-    mobile.addChild(contactView);
+   // mobile.removeChild(mobile.bmp); Cambiar por no visible
+    mobileC.removeChild(contactView);
+    mobileC.removeChild(prevButton);
+    mobileC.removeChild(nextButton);
+    mobileC.removeChild(audioButton);
+    mobileC.removeChild(audioButton2);
+    mobileC.bmp=new createjs.Bitmap(loader.getResult('mobileDecide'));
+    mobileC.bmp.scaleX=3;
+    mobileC.bmp.scaleY=3;
+    mobileC.addChild(mobileC.bmp);
+    mobileC.addChild(contactView);
     //prevButton=new createjs.Bitmap(loader.getResult('flechaizq'));
 }
 

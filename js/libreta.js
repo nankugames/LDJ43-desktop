@@ -1,5 +1,5 @@
 console.log('loaded Notebook(libreta.js)');
-var notebook;
+var notebookC;
 var message_notebook;
 var closeButton2;
 var notebookActive=false;
@@ -7,19 +7,19 @@ var iClue=0;
 var clues=[];
 function loadNotebook(){
  console.log("Opening notebook..."); 
- if(stage){
+ //if(stage){
 
-
-    notebook=new createjs.Container();
-    notebook.bmp=new createjs.Bitmap(loader.getResult('bgNotebook'));
-    notebook.x = stage.canvas.width/2;
-    notebook.y=stage.canvas.height*2+stage.canvas.height-50;
-    content.addChild(notebook);
-    notebook.addChild(notebook.bmp);
+    //if(notebookC){
+    notebookC=new createjs.Container();
+    /*notebook.bmp=new createjs.Bitmap(loader.getResult('bgNotebook'));*/
+    notebookC.x = 80;//stage.canvas.width/2;
+    notebookC.y=1900;//stage.canvas.height*2+stage.canvas.height-50;
+    content.addChild(notebookC);
+    //notebookC.addChild(notebook);
     closeButton2=new createjs.Bitmap(loader.getResult('closeBt'));
     closeButton2.x=0;
     closeButton2.y=0;
-    notebook.addChild(closeButton2);
+    notebookC.addChild(closeButton2);
     closeButton2.addEventListener("click",closeNotebook);
     
 
@@ -29,20 +29,20 @@ function loadNotebook(){
 	message_notebook.x = window.innerWidth/100; 
     message_notebook.y = window.innerHeight/8;
     message_notebook.maxWidth=window.innerWidth;
-    notebook.addChild(message_notebook);
+    notebookC.addChild(message_notebook);
     for(var q in clues){
-        notebook.addChild(clues[q]);
+        notebookC.addChild(clues[q]);
     }
     notebookActive=true;
-  
- }
+   // }
+ //}
 }
 
 function closeNotebook(){
-    notebook.removeChild(closeButton2);
-    notebook.removeChild(notebook.bmp)
-    notebook.removeChild(message_notebook);
-    content.removeChild(notebook);
+    notebookC.removeChild(closeButton2);
+   // notebookC.removeChild(notebook)
+    notebookC.removeChild(message_notebook);
+    content.removeChild(notebookC);
     notebookActive=false;
 }
 
