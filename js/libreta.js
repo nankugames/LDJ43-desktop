@@ -51,11 +51,17 @@ function closeNotebook(){
 function addClue(textClue,idWitness){
 //n será el indice que guarda el numero de pistas ya apuntadas
 //Se usa para posicionar calculando .y=n*40; por tamaño 36px
+    
+    var colorPista="black";
+    if(idWitness==0)colorPista = "#99402D";
+    else if(idWitness>contacts.length) {
+        colorPista ="green";
+        textClue='Patrulla'+idWitness+': '+textClue.slice(0,60)+'...'; //TODO:Pendiente recortar si supera ancho
+    }
     clues[iClue] = new createjs.Text(textClue);
     clues[iClue].font ="36px BrotherDeluxe";
     clues[iClue].textAlign="left";
-    if(idWitness==0)clues[iClue].color = "#99402D";
-    else clues[iClue].color="black";
+    clues[iClue].color = colorPista;
     clues[iClue].x = window.innerWidth/4; 
     clues[iClue].y = 2*window.innerHeight/8+iClue*window.innerHeight/8;
     clues[iClue].maxWidth=window.innerWidth;

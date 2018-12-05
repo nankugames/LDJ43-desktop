@@ -187,7 +187,7 @@ function loadMobile(){
   // if(typeof message_mobile!== 'undefined'){ 
     message_mobile = new createjs.Text("Agent 2: Info");
     message_mobile.font ="36px BrotherDeluxe";
-    message_mobile.color = "#99402D";
+    message_mobile.color = 'white';//ROJO "#99402D";
 	message_mobile.x =50;//window.innerWidth/3; 
     message_mobile.y = window.innerHeight-40; //36px fuente 
     message_mobile.maxWidth=550;//window.innerWidth;

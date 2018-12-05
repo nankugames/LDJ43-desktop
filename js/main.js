@@ -3,7 +3,8 @@ console.log('loaded main.js');
 var w = 1920;
 var h = 1440;
 
-var time = timeBackup = 90;
+var time = 90;
+var timeBackup = 90;
 var loader;
 var stage;
 var content, hotspotsMC;
@@ -65,7 +66,7 @@ var hotspotPaths = {
         27: { x:915, y:950, distance: 8 },
         */
     }
-}
+};
 
 var hotspots = [
     { x: 560, y:580 },
@@ -102,9 +103,10 @@ var hotspots = [
 ];
 
 var audiosLoaded=false;
-var instanciaSonido;
+var instanciaSonido=[];
 var botonMusica;
 var PlayerAtScreenView="Top"; //"Bottom"
+var final=false;
 
 window.addEventListener('resize', resize, false);
 
@@ -114,12 +116,12 @@ window.addEventListener("mousemove", function(e) {
 	if (e.screenY > 980&PlayerAtScreenView=="Top") {
 		content.y = -stage.canvas.height;
         PlayerAtScreenView="Bottom";
-        this.console.log(stage.canvas.height + ',' + h + '-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+e.screenY );
+        //this.console.log(stage.canvas.height + ',' + h + '-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+e.screenY );
 	}
 	if (e.screenY < 200&PlayerAtScreenView=="Bottom") {
 		content.y = 0;
         PlayerAtScreenView="Top";	
-        this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+ e.screenY);
+        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+ e.screenY);
     }
 }
 else this.console.log("Aún no existe content o stage");
@@ -130,26 +132,14 @@ window.addEventListener('click', function(e) {
 	if ((e.clientY > 980) &PlayerAtScreenView=="Top") { //stage.canvas.height-100
 		content.y = -stage.canvas.height;
         PlayerAtScreenView="Bottom";
-        this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
+        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
 	}
 	if (e.clientY < 200&PlayerAtScreenView=="Bottom") {
 		content.y = 0;
         PlayerAtScreenView="Top";
-        this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
+        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
 	}
-/*	if(PlayerAtScreenView=="Bottom"){
-		if(e.clientX<200&!mobileActive&!notebookActive){
-		loadMobile();
-		}
-		else if(e.clientX>stage.canvas.width-200&!notebookActive&!mobileActive){
-		loadNotebook();
-		} 
-	}
-	if(PlayerAtScreenView=="Top"){
-		if(e.clientX<100&e.clientY<100){ //suena al pinchar en la esquina de arriba
-            loadMap();
-		}
-	}*/	
+		
   }
   else this.console.log("Aun no existe content o stage");
 });
@@ -177,7 +167,7 @@ function init() {
 	
 	//MAPS
 	miniCar = new createjs.Bitmap(loader.getResult('car'));
-    miniCar.scaleX = miniCar.scaleY = .33;
+    miniCar.scaleX = miniCar.scaleY = 0.33;
     miniCar.regX = miniCar.image.width;
 
     timeBox = new createjs.Container();
@@ -209,50 +199,50 @@ function init() {
     //textBox.titleTxt.maxWidth = stage.canvas.width;
     textBox.titleTxt.lineWidth = 600;
 
-    alert = new createjs.Container();
-    alert.bkg = new createjs.Bitmap(loader.getResult('alert'));
-    alert.x = 319;
-    alert.y = 523;
-    alert.visible = false;
-    alert.txt = new createjs.Text('');
-    alert.txt.font = '24px Commodore64P';
-    alert.txt.color = '#000';
-    alert.txt.x = 360;
-    alert.txt.y = 280;
-    alert.txt.lineWidth = 500;
+    alert1 = new createjs.Container();
+    alert1.bkg = new createjs.Bitmap(loader.getResult('alert1'));
+    alert1.x = 319;
+    alert1.y = 523;
+    alert1.visible = false;
+    alert1.txt = new createjs.Text('');
+    alert1.txt.font = '24px Commodore64P';
+    alert1.txt.color = '#000';
+    alert1.txt.x = 360;
+    alert1.txt.y = 280;
+    alert1.txt.lineWidth = 500;
 
 
-    alert.btnOK = new createjs.Container();
-    alert.btnOK.bkg = new createjs.Bitmap(loader.getResult('alertBtn'));
-    alert.btnOK.x = 430;
-    alert.btnOK.y = 440;
-    alert.btnOK.txt = new createjs.Text('OK');
-    alert.btnOK.txt.font = '24px Commodore64P';
-    alert.btnOK.txt.color = '#000';
-    alert.btnOK.txt.textAlign = 'center';
-    alert.btnOK.txt.x = 86;
-    alert.btnOK.txt.y = 25;
-    alert.btnOK.cursor = 'pointer';
+    alert1.btnOK = new createjs.Container();
+    alert1.btnOK.bkg = new createjs.Bitmap(loader.getResult('alertBtn'));
+    alert1.btnOK.x = 430;
+    alert1.btnOK.y = 440;
+    alert1.btnOK.txt = new createjs.Text('OK');
+    alert1.btnOK.txt.font = '24px Commodore64P';
+    alert1.btnOK.txt.color = '#000';
+    alert1.btnOK.txt.textAlign = 'center';
+    alert1.btnOK.txt.x = 86;
+    alert1.btnOK.txt.y = 25;
+    alert1.btnOK.cursor = 'pointer';
 
-    alert.btnKO = new createjs.Container();
-    alert.btnKO.bkg = new createjs.Bitmap(loader.getResult('alertBtn'));
-    alert.btnKO.x = 670;
-    alert.btnKO.y = 440;
-    alert.btnKO.txt = new createjs.Text('Cancel');
-    alert.btnKO.txt.font = '24px Commodore64P';
-    alert.btnKO.txt.color = '#000';
-    alert.btnKO.txt.textAlign = 'center';
-    alert.btnKO.txt.x = 86;
-    alert.btnKO.txt.y = 25;
-    alert.btnKO.cursor = 'pointer';
+    alert1.btnKO = new createjs.Container();
+    alert1.btnKO.bkg = new createjs.Bitmap(loader.getResult('alertBtn'));
+    alert1.btnKO.x = 670;
+    alert1.btnKO.y = 440;
+    alert1.btnKO.txt = new createjs.Text('Cancel');
+    alert1.btnKO.txt.font = '24px Commodore64P';
+    alert1.btnKO.txt.color = '#000';
+    alert1.btnKO.txt.textAlign = 'center';
+    alert1.btnKO.txt.x = 86;
+    alert1.btnKO.txt.y = 25;
+    alert1.btnKO.cursor = 'pointer';
 
-    alert.btnOK.addEventListener('click', function(e) {
-        alert.visible = false;
+    alert1.btnOK.addEventListener('click', function(e) {
+        alert1.visible = false;
         textBox.visible = false;
         moveCar(timeToGo);
     });
-    alert.btnKO.addEventListener('click', function(e) {
-        alert.visible = false;
+    alert1.btnKO.addEventListener('click', function(e) {
+        alert1.visible = false;
         textBox.visible = false;
     });
 
@@ -297,11 +287,11 @@ function init() {
         dialog.txtOK.text = "-" + quiz[quiz.i].answer[0].value + _t.minutes;
 
         dialog.txtOK.visible = false;
-        setTimeout(function(){ dialog.txtOK.visible = true; }, 500)
-        setTimeout(function(){ dialog.txtOK.visible = false; }, 1000)
-        setTimeout(function(){ dialog.txtOK.visible = true; }, 1500)
-        setTimeout(function(){ dialog.txtOK.visible = false; }, 2000)
-        setTimeout(function(){ dialog.txtOK.visible = true; }, 2500)
+        setTimeout(function(){ dialog.txtOK.visible = true; }, 500);
+        setTimeout(function(){ dialog.txtOK.visible = false; }, 1000);
+        setTimeout(function(){ dialog.txtOK.visible = true; }, 1500);
+        setTimeout(function(){ dialog.txtOK.visible = false; }, 2000);
+        setTimeout(function(){ dialog.txtOK.visible = true; }, 2500);
         setTimeout(function() {
             quiz.i++; 
             if (quiz[quiz.i]) {
@@ -313,7 +303,7 @@ function init() {
         updateTime(time - quiz[quiz.i].answer[0].value);
         }
         else console.log("No existe quiz o quiz(i)");
-        addClue(dialog.txt.text,iActualContact); //ANOTA EN LIBRETA id?
+        addClue(dialog.txt.text,contacts.length+1); //ANOTA EN LIBRETA id?
 
         
     });
@@ -334,12 +324,12 @@ function init() {
         dialog.txtKO.text = "-" + quiz[quiz.i].answer[1].value + _t.minutes;
 
         dialog.txtKO.visible = false;
-        setTimeout(function(){ dialog.txtKO.visible = true; }, 500)
-        setTimeout(function(){ dialog.txtKO.visible = false; }, 1000)
-        setTimeout(function(){ dialog.txtKO.visible = true; }, 1500)
-        setTimeout(function(){ dialog.txtKO.visible = false; }, 2000)
-        setTimeout(function(){ dialog.txtKO.visible = true; }, 2500)
-        setTimeout(function(){ dialog.visible = false; }, 3000)
+        setTimeout(function(){ dialog.txtKO.visible = true; }, 500);
+        setTimeout(function(){ dialog.txtKO.visible = false; }, 1000);
+        setTimeout(function(){ dialog.txtKO.visible = true; }, 1500);
+        setTimeout(function(){ dialog.txtKO.visible = false; }, 2000);
+        setTimeout(function(){ dialog.txtKO.visible = true; }, 2500);
+        setTimeout(function(){ dialog.visible = false; }, 3000);
 
         updateTime(time - quiz[quiz.i].answer[1].value);
     });
@@ -430,16 +420,16 @@ function init() {
 
 
 	content.addChild(textBox);
-    content.addChild(alert);
+    content.addChild(alert1);
     content.addChild(alert2);
-    alert.addChild(alert.bkg);
-    alert.addChild(alert.txt);
-    alert.addChild(alert.btnOK);
-    alert.btnOK.addChild(alert.btnOK.bkg);
-    alert.btnOK.addChild(alert.btnOK.txt);
-    alert.addChild(alert.btnKO);
-    alert.btnKO.addChild(alert.btnKO.bkg);
-    alert.btnKO.addChild(alert.btnKO.txt);
+    alert1.addChild(alert1.bkg);
+    alert1.addChild(alert1.txt);
+    alert1.addChild(alert1.btnOK);
+    alert1.btnOK.addChild(alert1.btnOK.bkg);
+    alert1.btnOK.addChild(alert1.btnOK.txt);
+    alert1.addChild(alert1.btnKO);
+    alert1.btnKO.addChild(alert1.btnKO.bkg);
+    alert1.btnKO.addChild(alert1.btnKO.txt);
     alert2.addChild(alert2.bkg);
     alert2.addChild(alert2.car);
     textBox.addChild(textBox.bkg);
@@ -464,7 +454,7 @@ botonMusica.y= 0;//window.innerHeight/3;
 botonMusica.scaleX = 0.25;
 botonMusica.scaleY=0.25;
 content.addChild(botonMusica); 
-botonMusica.addEventListener('click',function(){playSound("tema1");});
+botonMusica.addEventListener('click',stopSounds);
 
     content.addChild(click);
     resize();
@@ -501,12 +491,12 @@ function nextQuiz(q) {
     dialog.txtKO.hitArea = dialog.txtKO.hit;
     dialog.txtKO.hit.cursor = 'pointer';
 
-    if (dialog.txtOK.text == '') {
-        setTimeout(function(){ dialog.txtNext.visible = true; }, 2500)
-        setTimeout(function(){ dialog.txtNext.visible = false; }, 3000)
-        setTimeout(function(){ dialog.txtNext.visible = true; }, 3500)
-        setTimeout(function(){ dialog.txtNext.visible = false; }, 4000)
-        setTimeout(function(){ dialog.txtNext.visible = true; }, 4500)
+    if (dialog.txtOK.text === '') {
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 2500);
+        setTimeout(function(){ dialog.txtNext.visible = false; }, 3000);
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 3500);
+        setTimeout(function(){ dialog.txtNext.visible = false; }, 4000);
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 4500);
     }
 
     dialog.visible = true;
@@ -515,10 +505,21 @@ function updateTime(t) {
     time = t;
     timeBox.txt.text = time + ' ' + _t.minutes;
 }
-//----------------------------------
-// TICKER FUNCTIONS
-//----------------------------------
+//-———————————
+// TICKER FUNCTIONS : GameController-update()
+//-———————————
 function handleTick() {
+
+    
+    if(time<90&time>60) playSound("tema1");
+    if(time<60&time>30) playSound("tema2");
+    if(time<30) playSound("tema3");
+    if(time<=0&!final){
+        final=true;
+        stopSounds();
+        playSound("final");
+        alert("SE ACABÓ EL TIEMPO");
+    }
 	stage.update();
 	//console.log("TICK HANDLED");
 }
@@ -527,12 +528,12 @@ function handleTick() {
     console.log('Tick actualizado')
 }*/
 
-//----------------------------------
+//-———————————
 // BEGIN FUNCTIONS
-//----------------------------------
+//-———————————
 function loadImages() {
     manifest = [
-		{src: 'alert.png', id: 'alert'},
+		{src: 'alert.png', id: 'alert1'},
         {src: 'alert2.png', id: 'alert2'},
         {src: 'white-btn.png', id: 'alertBtn'},
 		{src: 'car.png', id: 'car'},
@@ -613,8 +614,8 @@ function loadImages() {
         {src: 'text-box.png', id: 'textBox'},
     ];
 
-    for (i=20;i<=20;i++) {
-        for(j in hotspotPaths[i]) {
+    for (var i=20;i<=20;i++) {
+        for(var j in hotspotPaths[i]) {
             manifest.push({ src: i + '-' + j + '.png', id: i + '-' + j });
         }
     }
@@ -647,18 +648,18 @@ function resize() {
     if(typeof content!== 'undefined'){
     stage.canvas.width = window.innerWidth;
     stage.canvas.height = window.innerHeight;
-    content.regX = w / 2
+    content.regX = w / 2;
     content.scaleX = content.scaleY = stage.canvas.height / h;
     content.x = stage.canvas.width / 2;
     content.y = 0;
 }
     else console.log("resize no tiene content creado");
 }
-//----------------------------------
+//-———————————
 // MAP FUNCTIONS
-//----------------------------------
+//-———————————
 function moveCar(timeLeft) {
-    if (alert2.visible == false) {
+    if (alert2.visible === false) {
         alert2.visible = true;
         moveCarRun = setInterval(function(){ alert2.car.x+= (5 * alert2.car.direction)}, 200);
         moveCarReset = setInterval(function(){ alert2.car.x = alert2.car.oldX }, 1000);
@@ -675,7 +676,7 @@ function moveCar(timeLeft) {
     }
 
     if (timeLeft > 0) {
-        timeLeft --;
+        timeLeft--;
         setTimeout(function() { 
             updateTime(--time);
             moveCar(timeLeft);
@@ -708,8 +709,8 @@ function moveCar(timeLeft) {
 
 }
 function loadHotspotPaths() {
-    for (i in hotspotPaths) {
-        for(j in hotspotPaths[i]) {
+    for (var i in hotspotPaths) {
+        for(var j in hotspotPaths[i]) {
             hotspotPaths[i][j].img = new createjs.Bitmap(loader.getResult(i + '-' + j));
             hotspotPaths[i][j].img.x = hotspotPaths[i][j].x;
             hotspotPaths[i][j].img.y = hotspotPaths[i][j].y;
@@ -725,7 +726,7 @@ function loadHotspots() {
     hotspotsMC = new createjs.Container();
     stage.addChild(hotspotsMC);
 
-    for (i=0; i<hotspots.length;i++) {
+    for (var i=0; i<hotspots.length;i++) {
         var hp = hotspots[i];
         hp.bmp = new createjs.Bitmap(loader.getResult('idlePin'));
         if (i == initCarPosition-1) {
@@ -747,9 +748,10 @@ function loadHotspots() {
             + '\n\n' + _t.hotspots[hp.bmp.id].text; 
 
         hp.bmp.addEventListener('mouseover', function(e) {
-            if (hotspotPaths[lastPin.id])
-                var hpTarget = hotspotPaths[lastPin.id][e.currentTarget.id];
-
+            if (hotspotPaths[lastPin.id]){
+                if(typeof hotspotPaths[lastPin.id][e.currentTarget.id]!=='undefined') var hpTarget = hotspotPaths[lastPin.id][e.currentTarget.id];
+                else console.log('hotspotPaths[][x] '+hotspotPaths[lastPin.id]+' sin datos');
+            }
             if (hpTarget && hpTarget.distance) {
                 textBox.titleTxt.text = e.currentTarget.title + 
                     '\n\n\n' + _t.distance +': ' + 
@@ -777,8 +779,10 @@ function loadHotspots() {
         hp.bmp.addEventListener('mouseout', function(e) {
             console.log(lastPin, e.currentTarget);
             if (lastPin.id != e.currentTarget.id) {
-                if (hotspotPaths[lastPin.id])
-                    var hpTarget = hotspotPaths[lastPin.id][e.currentTarget.id];
+                if (hotspotPaths[lastPin.id]){
+                    if(typeof hotspotPaths[lastPin.id][e.currentTarget.id]!=='undefined') var hpTarget = hotspotPaths[lastPin.id][e.currentTarget.id];
+                    else console.log('hotspotPaths[x][] para '+hotspotPaths[lastPin.id]+' sin datos');
+                }
                 textBox.visible = false;
                 stage.cursor = 'default';
                 if (!e.currentTarget.pulsado) e.currentTarget.image = loader.getResult('idlePin');
@@ -788,19 +792,20 @@ function loadHotspots() {
         });
 
         hp.bmp.addEventListener('click', function(e) {
-            lastPath = hotspotPaths[lastPin.id][e.currentTarget.id];
+            if(typeof hotspotPaths[lastPin.id]!=='undefined') lastPath = hotspotPaths[lastPin.id][e.currentTarget.id];
+            else console.log('hotspotPaths [x][] para '+[e.currentTarget.id]+' sin datos');
             if (!e.currentTarget.blocked) {
                 if (!lastPath || !lastPath.distance || lastPath.distance > 8) {
                     alert('Está demasiado lejos');
                 } else {
                     timeToGo = lastPath.distance;
-                    alert.txt.text = "Llegar a...\n\n\"" + 
+                    alert1.txt.text = "Llegar a...\n\n\"" + 
                         _t.hotspots[e.currentTarget.id].title + 
                         "\"\n\n...nos llevará " + 
                         lastPath.distance + 
                         ' ' + _t.minutes;
 
-                    alert.visible = true;
+                    alert1.visible = true;
                 }
             }
 
@@ -816,23 +821,39 @@ function loadHotspots() {
     }
 }
 
-//----------------------------------
+//-———————————
 // SOUND FUNCTIONS
-//----------------------------------
+//-———————————
 function loadAudio() {
 	var assetsPath = 'assets/audio/';
     sounds = [{
-        src: 'El inspector (Tema de entrada).mp3',
+        src: 'ruido_oficina_parabucle.mp3',
         id: 'tema1',
         loop: -1
-    }, {
-        src: 'Boiiing.mp3',
+    }, 
+    {
+        src: 'Escritura.mp3',
         id: 'efecto1',
         loop: -1
 	},
 	{
-        src: 'borraDisparo.mp3',
+        src: 'Boiiing.mp3',
         id: 'efecto2',
+        loop: -1
+    },
+	{
+        src: 'POLI_SEVILLANO_CAPA1.mp3',
+        id: 'tema2',
+        loop: -1
+    },
+	{
+        src: 'POLI_SEVILLANO_CAPA2.mp3',
+        id: 'tema3',
+        loop: -1
+    },
+	{
+        src: 'borraDisparo.mp3',
+        id: 'final',
         loop: -1
     }];
     createjs.Sound.alternateExtensions = ['mp3']; //mp3 //add other extensions to try loading if the src file extension is not supported
@@ -841,29 +862,36 @@ function loadAudio() {
 }
 function soundLoaded(event) {
 	console.log("LOADED AUDIO FILES");
-	audiosLoaded=true;
-	instanciaSonido = createjs.Sound.createInstance(event.id);
+    audiosLoaded=true;
+    songInst=createjs.Sound.createInstance(event.id);
+	instanciaSonido [event.id]= songInst;
 }
-function stop() {
-	if(instanciaSonido){
-		instanciaSonido.stop();
-	}
+function stopSounds() {
+	//for (var sonido in instanciaSonido) if(typeof sonido!=='undefined') createjs.Sound.stop(sonido.src);
+    createjs.Sound.stop();
 }
 function playSound(target) {	
-	if(!instanciaSonido){
-		 instanciaSonido=createjs.Sound.createInstance(target);
-	}
+   /* if(!instanciaSonido[target]){
+        songInst=createjs.Sound.createInstance(target);
+        instanciaSonido [target]= songInst;
+        instanciaSonido[target].play();
+    }
 	//Play the sound: play (src, interrupt, delay, offset, loop, volume, pan)
-	if(audiosLoaded){
-		instanciaSonido=createjs.Sound.play(target);
+	else */if(audiosLoaded){
+        if(!instanciaSonido[target].position>0&!instanciaSonido[target].position<instanciaSonido[target].duration){
+            if(target==="tema3"){
+                instanciaSonido[target].position=instanciaSonido["tema2"].position;
+            }
+            else instanciaSonido[target].play();
+        } 
 	}
-	else if(instanciaSonido.position<instanciaSonido.duration){
-	instanciaSonido.stop();
-	}			
-}  
-//----------------------------------
+	/*else if(instanciaSonido[target].position<instanciaSonido[target].duration){
+	    instanciaSonido[target].stop();
+    }		*/	
+} 
+//-———————————
 //Info de carga y errores
-//----------------------------------
+//-———————————
 function onLoadError(event) {
     console.log("Error", event);
 }
