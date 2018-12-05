@@ -227,7 +227,7 @@ function closeMobile(){
 }
 
 function loadContact(n){
-    
+    contacts[iActualContact].indexInfo=0;
     contactView = new createjs.Bitmap(loader.getResult(contacts[n].idImage));
     console.log("Cargando imagen de contacto: "+contacts[n].idImage);
     contactView.x = 200;// window.innerWidth/2nnerHeight/2;
@@ -237,11 +237,10 @@ function loadContact(n){
     mobileC.addChild(contactView);
     contactView.addEventListener('click',cambiaFondo)
     message_mobile.text=contacts[n].infoArray[contacts[n].indexInfo];
-    
 }
 
 function nextContact(){
-    contacts[iActualContact].indexInfo=0;
+    
     if(iActualContact<contacts.length-1) iActualContact++;
     else iActualContact=0;
     loadContact(iActualContact);

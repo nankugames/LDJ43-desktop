@@ -110,46 +110,14 @@ var final=false;
 
 window.addEventListener('resize', resize, false);
 
-// PARA VERSION DESKTOP
-window.addEventListener("mousemove", function(e) {
-    if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
-	if (e.screenY > 980&PlayerAtScreenView=="Top") {
-		content.y = -stage.canvas.height;
-        PlayerAtScreenView="Bottom";
-        //this.console.log(stage.canvas.height + ',' + h + '-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+e.screenY );
-	}
-	if (e.screenY < 200&PlayerAtScreenView=="Bottom") {
-		content.y = 0;
-        PlayerAtScreenView="Top";	
-        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+ e.screenY);
-    }
-}
-else this.console.log("Aún no existe content o stage");
-});
-//VERSION MOVIL Y CLICKS
-window.addEventListener('click', function(e) {
-   if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
-	if ((e.clientY > 980) &PlayerAtScreenView=="Top") { //stage.canvas.height-100
-		content.y = -stage.canvas.height;
-        PlayerAtScreenView="Bottom";
-        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
-	}
-	if (e.clientY < 200&PlayerAtScreenView=="Bottom") {
-		content.y = 0;
-        PlayerAtScreenView="Top";
-        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
-	}
-		
-  }
-  else this.console.log("Aun no existe content o stage");
-});
+
 function init() {
 
 	stage = new createjs.Stage("mainCanvas");
 	stage.enableMouseOver(60);
 
 	canvas = document.getElementById("mainCanvas");
-	canvas.addEventListener('click', fullscreen);
+	window.addEventListener('click', fullscreen);
 
 	ctx = canvas.getContext("2d");
 	ctx.translate(0.5,0.5);
@@ -163,7 +131,7 @@ function init() {
     bkgNotebook = new createjs.Bitmap(loader.getResult('bkgNotebook'));
     mobile = new createjs.Bitmap(loader.getResult('mobile'));
     notebook = new createjs.Bitmap(loader.getResult('notebook'));
-	click = new createjs.Bitmap(loader.getResult('click'));
+	clickbg = new createjs.Bitmap(loader.getResult('clickbg'));
 	
 	//MAPS
 	miniCar = new createjs.Bitmap(loader.getResult('car'));
@@ -456,7 +424,7 @@ botonMusica.scaleY=0.25;
 content.addChild(botonMusica); 
 botonMusica.addEventListener('click',stopSounds);
 
-    content.addChild(click);
+    content.addChild(clickbg);
     resize();
 	
 	
@@ -546,7 +514,7 @@ function loadImages() {
         {src: 'mobile3x.png', id: 'mobile'},
         {src: 'notebook4x.png', id: 'notebook'},
 
-        {src: 'click4x.png', id: 'click'},
+        {src: 'click4x.png', id: 'clickbg'},
         {src: 'dialog.png', id: 'dialog'},
 
 		{src: 'text-box.png', id: 'textBox'},
@@ -635,8 +603,42 @@ function fullscreen() {
         el.msRequestFullscreen;
 
     rfs.call(el);
-    content.removeChild(click);
-    canvas.removeEventListener('click', fullscreen);
+    content.removeChild(clickbg);
+    window.removeEventListener('click', fullscreen);
+
+    // PARA VERSION DESKTOP
+window.addEventListener("mousemove", function(e) {
+    if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
+	if (e.screenY > 980&PlayerAtScreenView=="Top") {
+		content.y = -stage.canvas.height;
+        PlayerAtScreenView="Bottom";
+        //this.console.log(stage.canvas.height + ',' + h + '-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+e.screenY );
+	}
+	if (e.screenY < 200&PlayerAtScreenView=="Bottom") {
+		content.y = 0;
+        PlayerAtScreenView="Top";	
+        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por cursor en pos='+e.screenX+','+ e.screenY);
+    }
+}
+else this.console.log("Aún no existe content o stage");
+});
+//VERSION MOVIL Y CLICKS
+window.addEventListener('click', function(e) {
+   if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
+	if ((e.clientY > 980) &PlayerAtScreenView=="Top") { //stage.canvas.height-100
+		content.y = -stage.canvas.height;
+        PlayerAtScreenView="Bottom";
+        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
+	}
+	if (e.clientY < 200&PlayerAtScreenView=="Bottom") {
+		content.y = 0;
+        PlayerAtScreenView="Top";
+        //this.console.log(stage.canvas.height + ',' + h+'-> pone en: '+PlayerAtScreenView+' :por click en pos='+e.clientX+','+e.clientY);
+	}
+		
+  }
+  else this.console.log("Aun no existe content o stage");
+});
     stage.canvas.width = window.innerWidth;
     stage.canvas.height = window.innerHeight;
     fullscreenActivated = true;
