@@ -328,19 +328,19 @@ function init() {
     mobile.y = 1900;// JNO stage.canvas.heigt-200;
     mobile.x = 400;
     mobile.visible = false;
-    mobile.addEventListener('click', function(e) { 
+    /*mobile.addEventListener('click', function(e) { 
         e.currentTarget.visible = false;
         bkgMobile.visible = true;
-    });
+    });*/
 
     notebook.y = 1900;//stage.canvas.height*2+stage.canvas.height-50;JNO
     notebook.x = 80;
     notebook.visible = false;
-    notebook.addEventListener('click', function(e) {
+    /*notebook.addEventListener('click', function(e) {
         e.currentTarget.visible = false;
         bkgNotebook.visible = true;
         
-    });
+    });*/
 
     bkgMobile.y = 2161;//stage.canvas.height*2+stage.canvas.height-50;JNO
     bkgMobile.cursor = 'pointer';
@@ -437,44 +437,8 @@ botonMusica.addEventListener('click',stopSounds);
 	createjs.Ticker.addEventListener("tick", handleTick);
 	
 }
-function nextQuiz(q) {
-    if (!q.i) q.i = 0;
 
-    dialog.txtOK.text = dialog.txtKO.text = '';
 
-    quiz = q;
-    dialog.txt.text = q[q.i].text;
-    if (q[q.i].answer && q[q.i].answer[0].text) {
-        dialog.txtOK.text = q[q.i].answer[0].text;
-    }
-    if (q[q.i].answer && q[q.i].answer[1].text) {
-        dialog.txtKO.text = q[q.i].answer[1].text;
-    }
-
-    dialog.txtOK.hit = new createjs.Shape();
-    dialog.txtOK.hit.graphics.beginFill("#000").drawRect(0, 0, dialog.txtOK.getMeasuredWidth(), dialog.txtOK.getMeasuredHeight());
-    dialog.txtOK.hitArea = dialog.txtOK.hit;
-    dialog.txtOK.hit.cursor = 'pointer';
-
-    dialog.txtKO.hit = new createjs.Shape();
-    dialog.txtKO.hit.graphics.beginFill("#000").drawRect(0, 0, dialog.txtKO.getMeasuredWidth(), dialog.txtKO.getMeasuredHeight());
-    dialog.txtKO.hitArea = dialog.txtKO.hit;
-    dialog.txtKO.hit.cursor = 'pointer';
-
-    if (dialog.txtOK.text === '') {
-        setTimeout(function(){ dialog.txtNext.visible = true; }, 2500);
-        setTimeout(function(){ dialog.txtNext.visible = false; }, 3000);
-        setTimeout(function(){ dialog.txtNext.visible = true; }, 3500);
-        setTimeout(function(){ dialog.txtNext.visible = false; }, 4000);
-        setTimeout(function(){ dialog.txtNext.visible = true; }, 4500);
-    }
-
-    dialog.visible = true;
-}
-function updateTime(t) {
-    time = t;
-    timeBox.txt.text = time + ' ' + _t.minutes;
-}
 //-———————————
 // TICKER FUNCTIONS : GameController-update()
 //-———————————
@@ -712,13 +676,56 @@ function moveCar(timeLeft) {
         clearInterval(moveCarRun);
         clearInterval(moveCarReset);
 
-        dialog.txt.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+        /*dialog.txt.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
         dialog.txtOK.text = "Ok. Alla voy";
         dialog.txtKO.text = "What????";
-        dialog.visible = true;
+        dialog.visible = true;*/
+
+        hpt = _t.hotspots[lastPin.id];
+
+        dialog.txtNext.visible = false;
+        nextQuiz(hpt.quiz);
     }
 
 
+}
+function nextQuiz(q) {
+    if (!q.i) q.i = 0;
+
+    dialog.txtOK.text = dialog.txtKO.text = '';
+
+    quiz = q;
+    dialog.txt.text = q[q.i].text;
+    if (q[q.i].answer && q[q.i].answer[0].text) {
+        dialog.txtOK.text = q[q.i].answer[0].text;
+    }
+    if (q[q.i].answer && q[q.i].answer[1].text) {
+        dialog.txtKO.text = q[q.i].answer[1].text;
+    }
+
+    dialog.txtOK.hit = new createjs.Shape();
+    dialog.txtOK.hit.graphics.beginFill("#000").drawRect(0, 0, dialog.txtOK.getMeasuredWidth(), dialog.txtOK.getMeasuredHeight());
+    dialog.txtOK.hitArea = dialog.txtOK.hit;
+    dialog.txtOK.hit.cursor = 'pointer';
+
+    dialog.txtKO.hit = new createjs.Shape();
+    dialog.txtKO.hit.graphics.beginFill("#000").drawRect(0, 0, dialog.txtKO.getMeasuredWidth(), dialog.txtKO.getMeasuredHeight());
+    dialog.txtKO.hitArea = dialog.txtKO.hit;
+    dialog.txtKO.hit.cursor = 'pointer';
+
+    if (dialog.txtOK.text === '') {
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 2500);
+        setTimeout(function(){ dialog.txtNext.visible = false; }, 3000);
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 3500);
+        setTimeout(function(){ dialog.txtNext.visible = false; }, 4000);
+        setTimeout(function(){ dialog.txtNext.visible = true; }, 4500);
+    }
+
+    dialog.visible = true;
+}
+function updateTime(t) {
+    time = t;
+    timeBox.txt.text = time + ' ' + _t.minutes;
 }
 function loadHotspotPaths() {
     for (var i in hotspotPaths) {
