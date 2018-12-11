@@ -113,11 +113,13 @@ window.addEventListener('resize', resize, false);
 
 function init() {
 
+    //loadImages();
+
 	stage = new createjs.Stage("mainCanvas");
 	stage.enableMouseOver(60);
 
 	canvas = document.getElementById("mainCanvas");
-	window.addEventListener('click', fullscreen);
+	canvas.addEventListener('click', fullscreen);
 
 	ctx = canvas.getContext("2d");
 	ctx.translate(0.5,0.5);
@@ -136,7 +138,7 @@ function init() {
 	//MAPS
 	miniCar = new createjs.Bitmap(loader.getResult('car'));
     miniCar.scaleX = miniCar.scaleY = 0.33;
-    miniCar.regX = miniCar.image.width;
+    miniCar.regX = miniCar.width; //= miniCar.image.width;
 
     timeBox = new createjs.Container();
     timeBox.txt = new createjs.Text(time + ' ' + _t.minutes);
@@ -219,7 +221,7 @@ function init() {
     alert2.car = new createjs.Bitmap(loader.getResult('car'));
     alert2.car.x = alert2.car.oldX = 270;
     alert2.car.y = 610;
-    alert2.car.regX = alert2.car.image.width/2 - 30;
+    alert2.car.regX = alert2.car.width/2 - 30;//alert2.car.image.width/2 - 30;
     alert2.x = 319;
     alert2.y = 523;
     alert2.visible = false;
@@ -591,8 +593,13 @@ function loadImages() {
     console.log(manifest);
 
     loader = new createjs.LoadQueue(false);
-    loader.addEventListener('complete', init);
+    loader.addEventListener('complete', loadedImages);
     loader.loadManifest(manifest, true, 'assets/');
+}
+
+function loadedImages(){
+    console.log("Carga imagenes completa");
+    init();
 }
 
 function fullscreen() {
@@ -604,10 +611,10 @@ function fullscreen() {
 
     rfs.call(el);
     content.removeChild(clickbg);
-    window.removeEventListener('click', fullscreen);
+    canvas.removeEventListener('click', fullscreen);
 
     // PARA VERSION DESKTOP
-window.addEventListener("mousemove", function(e) {
+    canvas.addEventListener("mousemove", function(e) {
     if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
 	if (e.screenY > 980&PlayerAtScreenView=="Top") {
 		content.y = -stage.canvas.height;
@@ -623,7 +630,7 @@ window.addEventListener("mousemove", function(e) {
 else this.console.log("Aún no existe content o stage");
 });
 //VERSION MOVIL Y CLICKS
-window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
    if(typeof content!== 'undefined'&typeof stage!== 'undefined'){
 	if ((e.clientY > 980) &PlayerAtScreenView=="Top") { //stage.canvas.height-100
 		content.y = -stage.canvas.height;
@@ -846,12 +853,12 @@ function loadAudio() {
 	{
         src: 'POLI_SEVILLANO_CAPA1.mp3',
         id: 'tema2',
-        loop: -1
+        loop: 1
     },
 	{
         src: 'POLI_SEVILLANO_CAPA2.mp3',
         id: 'tema3',
-        loop: -1
+        loop: 1
     },
 	{
         src: 'borraDisparo.mp3',
