@@ -56,7 +56,7 @@ function addClue(textClue,idWitness){
     if(idWitness==0)colorPista = "#99402D";
     else if(idWitness>contacts.length) {
         colorPista ="green";
-        textClue='Patrulla'+idWitness+': '+textClue.slice(0,60)+'...'; //TODO:Pendiente recortar si supera ancho
+        textClue='Patrulla'+idWitness+': '+textClue; //.slice(0,60)+'...'TODO:Pendiente recortar si supera ancho
     }
     clues[iClue] = new createjs.Text(textClue);
     clues[iClue].font ="36px BrotherDeluxe";
@@ -64,6 +64,6 @@ function addClue(textClue,idWitness){
     clues[iClue].color = colorPista;
     clues[iClue].x = window.innerWidth/4; 
     clues[iClue].y = 2*window.innerHeight/8+iClue*window.innerHeight/8;
-    clues[iClue].maxWidth=window.innerWidth;
+    clues[iClue].lineWidth=window.innerWidth;//clues[iClue].maxWidth=window.innerWidth;
     iClue++;
 }

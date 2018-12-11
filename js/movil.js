@@ -190,7 +190,7 @@ function loadMobile(){
     message_mobile.color = 'white';//ROJO "#99402D";
 	message_mobile.x =50;//window.innerWidth/3; 
     message_mobile.y = window.innerHeight-40; //36px fuente 
-    message_mobile.maxWidth=550;//window.innerWidth;
+    message_mobile.lineWidth=550;//message_mobile.maxWidth=window.innerWidth;
     mobileC.addChild(message_mobile);
 
     loadContact(iActualContact);
