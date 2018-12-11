@@ -890,6 +890,7 @@ function playSound(target) {
         if(!instanciaSonido[target].position>0&!instanciaSonido[target].position<instanciaSonido[target].duration){
             if(target==="tema3"){
                 instanciaSonido[target].position=instanciaSonido["tema2"].position;
+                instanciaSonido[target].play();
             }
             else instanciaSonido[target].play();
         } 
