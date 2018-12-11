@@ -483,7 +483,10 @@ function handleTick() {
     
     if(time<90&time>60) playSound("tema1");
     if(time<60&time>30) playSound("tema2");
-    if(time<30) playSound("tema3");
+    if(time<30&time>0){
+        playSound("tema2");
+        playSound("tema3");
+    }
     if(time<=0&!final){
         final=true;
         stopSounds();
